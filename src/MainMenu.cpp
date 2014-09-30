@@ -17,9 +17,14 @@ MainMenu::~MainMenu() { }
 void MainMenu::run() {
     int ch = KEY_RESIZE, startx;
     std::size_t maxw, len;
+    bool running = true;
     m_Index = 0;
     
     do {
+#ifndef NDEBUG
+        mvprintw(getmaxy(stdscr)-2,0, "%s [%d]", keyname(ch),ch);
+        clrtoeol();
+#endif
         switch(ch) {
         case KEY_RESIZE:
             maxw = 0;
@@ -78,18 +83,37 @@ void MainMenu::run() {
             }
             break;
         case KEY_ENTER:
-            
+        case '\n':
+        case '\r':
+            switch(m_Index) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                running = false;
+                break;
+            }
             break;
         default:
+#ifndef NDEBUG
+            wrefresh(stdscr);
+#endif
             /* Ignore */
             break;
-            }
-    } while((ch = getch()) != 17);
+        }
+    } while(running && (ch = getch()) != 17);
     
     m_Stack->pop();
 }
 
 void MainMenu::moveCursor(std::size_t index) {
+#ifndef NDEBUG
+    mvprintw(getmaxy(stdscr)-1,0, "m_Index: %llu",
+             (long long unsigned)index);
+#endif
     m_Cursor.redraw(stdscr, m_Labels[m_Index], m_Labels[index]);
     m_Index = index;
     wrefresh(stdscr);
