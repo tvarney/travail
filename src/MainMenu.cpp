@@ -7,19 +7,38 @@
 
 using namespace travail;
 
-MainMenu::MainMenu() { }
+MainMenu::MainMenu() :
+    m_Title(0, 0, "Travail Text RPG", COLOR_PAIR(1) | A_BOLD),
+    m_NewGame(0, 2, "New Game"),
+    m_LoadGame(0, 3, "Load Game"),
+    m_Options(0, 4, "Options"),
+    m_Quit(0, 5, "Quit")
+{ }
 MainMenu::~MainMenu() { }
 
 void MainMenu::run() {
-    int x = 0, y = 0, ch = KEY_RESIZE;
+    int ch = KEY_RESIZE, startx;
     do {
         if(std::isprint(ch)) {
             /* Ignore */
         }else {
             switch(ch) {
             case KEY_RESIZE:
-                getmaxyx(stdscr, y, x);
-                mvaddstr(0, (x / 2) - 4, "Main Menu");
+                startx = (getmaxx(stdscr)-m_LoadGame.getDim().width) >> 1;
+                
+                m_Title.center_h(stdscr);
+                m_NewGame.setPos(startx, 2);
+                m_LoadGame.setPos(startx, 3);
+                m_Options.setPos(startx, 4);
+                m_Quit.setPos(startx, 5);
+                
+                m_Title.draw(stdscr);
+                m_NewGame.draw(stdscr);
+                m_LoadGame.draw(stdscr);
+                m_Options.draw(stdscr);
+                m_Quit.draw(stdscr);
+                
+                wrefresh(stdscr);
                 break;
             default:
                 /* Ignore */
