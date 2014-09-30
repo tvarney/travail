@@ -1,0 +1,7 @@
+
+*.o
+*.debug.o
+.present
+
+travail
+travail.debug
