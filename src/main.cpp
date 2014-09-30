@@ -15,7 +15,8 @@ int main(int argc, char **argv) {
     
     raw();
     noecho();
-    
+    keypad(stdscr, 1);
+    ESCDELAY = 50;
     
     travail::SceneStack stack;
     travail::MainMenu mainmenu;
