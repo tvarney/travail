@@ -6,6 +6,9 @@
 #include "../Label.hpp"
 #include "../Scene.hpp"
 
+#include "GameScene.hpp"
+#include "NewGameScene.hpp"
+
 namespace travail {
     class MainMenu : public Scene {
     public:
@@ -16,6 +19,11 @@ namespace travail {
         
         void moveCursor(std::size_t index);
     protected:
+        GameScene m_Game;
+        NewGameScene m_NewGame;
+        //LoadGameScene m_LoadGame;
+        //OptionsScene m_Options;
+        
         std::size_t m_Index;
         Cursor m_Cursor;
         Label m_Title;

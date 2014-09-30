@@ -87,7 +87,9 @@ void MainMenu::run() {
         case '\r':
             switch(m_Index) {
             case 0:
-                break;
+                m_Stack->push(m_Game);
+                m_Stack->push(m_NewGame);
+                return; //< Return so the scene stack can swap to the new scene
             case 1:
                 break;
             case 2:
