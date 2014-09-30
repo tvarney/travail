@@ -16,6 +16,7 @@ void GameScene::run() {
     int width, height;
     getmaxyx(stdscr, height, width);
     
+    m_Buffer.clear();
     m_Buffer.setPos(height - 1);
     
     std::basic_string<chtype> div;
@@ -28,6 +29,13 @@ void GameScene::run() {
         switch(m_Buffer.handle(stdscr, ch)) {
         case 0:
             wrefresh(stdscr);
+            break;
+        case KEY_ENTER:
+        case '\n':
+        case '\r':
+            m_Buffer.addToHistory(m_Buffer.data());
+            m_Buffer.clear();
+            m_Buffer.draw(stdscr);
             break;
         default:
             break;
