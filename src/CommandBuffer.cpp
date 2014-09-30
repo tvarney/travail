@@ -19,6 +19,7 @@ int CommandBuffer::handle(WINDOW *win, int ch) {
         }else {
             m_Buffer.insert(m_Index, 1, static_cast<char>(ch));
         }
+        m_Index += 1;
         draw(win);
         return 0;
     }else {
