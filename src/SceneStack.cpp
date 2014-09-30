@@ -1,7 +1,7 @@
 
-#include "SceneStack.hpp"
+#include "ui/SceneStack.hpp"
 
-#include "Scene.hpp"
+#include "ui/Scene.hpp"
 
 using namespace travail;
 

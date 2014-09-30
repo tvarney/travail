@@ -1,9 +1,9 @@
 
-#include "scenes/MainMenu.hpp"
+#include "ui/scenes/MainMenu.hpp"
 
 #include <cctype>
 #include <ncurses.h>
-#include "SceneStack.hpp"
+#include "ui/SceneStack.hpp"
 
 using namespace travail;
 

@@ -3,8 +3,8 @@
 #define TRAVAIL_WIDGET_HPP
 
 #include <ncurses.h>
-#include "Dimensions.hpp"
-#include "Point.hpp"
+#include "../geom/Dimensions.hpp"
+#include "../geom/Point.hpp"
 
 namespace travail {
     class Widget {

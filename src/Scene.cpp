@@ -1,5 +1,5 @@
 
-#include "Scene.hpp"
+#include "ui/Scene.hpp"
 
 using namespace travail;
 

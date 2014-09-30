@@ -1,5 +1,5 @@
 
-#include "Attribute.hpp"
+#include "game/Attribute.hpp"
 
 using namespace travail;
 

@@ -1,5 +1,5 @@
 
-#include "Cursor.hpp"
+#include "ui/Cursor.hpp"
 
 using namespace travail;
 
