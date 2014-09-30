@@ -2,12 +2,10 @@
 #ifndef TRAVAIL_LABEL_HPP
 #define TRAVAIL_LABEL_HPP
 
-#include <string>
+#include "Text.hpp"
 #include "Widget.hpp"
 
 namespace travail {
-    typedef std::basic_string<chtype> CString;
-    
     class Label : public Widget {
     public:
         Label();
@@ -18,19 +16,11 @@ namespace travail {
         
         virtual void draw(WINDOW *window);
         
-        virtual void setAttr(int attr);
-        virtual int getAttr() const;
-        
-        virtual void setText(const std::string &text);
-        virtual const std::string & getText() const;
-        
-        virtual const CString getDisplay() const;
+        const Text & getText() const;
+        Text & getText();
     protected:
         void genDisplay();
-        
-        std::string m_Text;
-        int m_Attr;
-        CString m_Display;
+        Text m_Text;
     };
 }
 
