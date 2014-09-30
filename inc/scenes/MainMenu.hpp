@@ -2,8 +2,9 @@
 #ifndef TRAVAIL_SCENES_MAIN_MENU_HPP
 #define TRAVAIL_SCENES_MAIN_MENU_HPP
 
-#include "../Scene.hpp"
+#include "../Cursor.hpp"
 #include "../Label.hpp"
+#include "../Scene.hpp"
 
 namespace travail {
     class MainMenu : public Scene {
@@ -12,12 +13,13 @@ namespace travail {
         virtual ~MainMenu();
         
         virtual void run();
+        
+        void moveCursor(std::size_t index);
     protected:
+        std::size_t m_Index;
+        Cursor m_Cursor;
         Label m_Title;
-        Label m_NewGame;
-        Label m_LoadGame;
-        Label m_Options;
-        Label m_Quit;
+        Label m_Labels[4];
     };
 }
 
