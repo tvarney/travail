@@ -19,11 +19,22 @@ int CommandBuffer::handle(WINDOW *win, int ch) {
         }else {
             m_Buffer.insert(m_Index, 1, static_cast<char>(ch));
         }
+        /* Increment position in buffer */
         m_Index += 1;
-        draw(win);
+        m_ScreenPos += 1;
+        if(m_Index >= static_cast<std::size_t>(getmaxx(win))) {
+            m_ScreenStart += 10;
+            draw(win);
+        }else {
+            mvwaddch(win, m_Origin.y, m_ScreenPos - 1, ch);
+        }
         return 0;
     }else {
         switch(ch) {
+        case KEY_BACKSPACE:
+            if(m_Buffer.size() > 0) {
+            }
+            return 0;
         default:
             return ch;
         }
@@ -32,8 +43,12 @@ int CommandBuffer::handle(WINDOW *win, int ch) {
 
 void CommandBuffer::draw(WINDOW *win) {
     /* Draw visible portion */
-    mvwaddnstr(stdscr, m_Origin.y, 0, m_Buffer.data()+m_ScreenStart,
-               m_Buffer.size() - m_ScreenStart);
+    wmove(stdscr, m_Origin.y, 0);
+    if(m_Buffer.size() > 0) {
+        waddnstr(stdscr, m_Buffer.data()+m_ScreenStart,
+                 m_Buffer.size() - m_ScreenStart);
+    }
+    clrtoeol();
 }
 
 void CommandBuffer::setPos(int y) {
@@ -60,6 +75,9 @@ void CommandBuffer::addToHistory(const std::string &string) {
     }
 }
 void CommandBuffer::clear() {
+    m_Index = 0;
+    m_ScreenStart = 0;
+    m_ScreenPos = 0;
     m_Buffer.clear();
 }
 
