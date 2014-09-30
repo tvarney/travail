@@ -10,8 +10,28 @@ using namespace travail;
 GameScene::GameScene() { }
 GameScene::~GameScene() { }
 void GameScene::run() {
-    mvwaddstr(stdscr, 0,0,"Game (Press any key to continue)");
+    mvwaddstr(stdscr, 0,0,"Game (Press ^Q to continue)");
     wrefresh(stdscr);
-    getch();
+    
+    int width, height;
+    getmaxyx(stdscr, height, width);
+    
+    m_Buffer.setPos(height - 1);
+    
+    std::basic_string<chtype> div;
+    div.resize(width, static_cast<chtype>(' ') | A_STANDOUT);
+    
+    mvaddchstr(height - 2, 0, div.data());
+    
+    int ch;
+    while((ch = getch()) != 17) {
+        switch(m_Buffer.handle(stdscr, ch)) {
+        case 0:
+            wrefresh(stdscr);
+            break;
+        default:
+            break;
+        }
+    }
     m_Stack->pop();
 }
