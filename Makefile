@@ -7,7 +7,7 @@ BIN := ./build
 
 CXX := g++
 
-CXXFLAGS := --std=c++11 -Wall --pedantic
+CXXFLAGS := --std=c++11 -Wall --pedantic -I${INC}
 OPT_DBG := -O0 -g
 OPT_REL := -O2 -DNDEBUG
 
