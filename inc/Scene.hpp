@@ -8,7 +8,7 @@ namespace travail {
     class Scene {
     public:
         Scene() = default;
-        virtual ~Scene() = default;
+        virtual ~Scene();
         
         virtual void start();
         virtual void stop();
