@@ -26,7 +26,7 @@ void MainMenu::run() {
             case KEY_RESIZE:
                 startx = (getmaxx(stdscr)-m_LoadGame.getDim().width) >> 1;
                 
-                m_Title.center_h(stdscr);
+                m_Title.center_h(getmaxx(stdscr));
                 m_NewGame.setPos(startx, 2);
                 m_LoadGame.setPos(startx, 3);
                 m_Options.setPos(startx, 4);

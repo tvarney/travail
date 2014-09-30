@@ -20,9 +20,9 @@ namespace travail {
         virtual void setPos(const Point2i &pos);
         virtual void setPos(int x, int y);
         
-        virtual void center(WINDOW *window);
-        virtual void center_h(WINDOW *window);
-        virtual void center_v(WINDOW *window);
+        virtual void center(int width, int height);
+        virtual void center_h(int width);
+        virtual void center_v(int height);
     protected:
         Widget();
         Widget(const Point2i &orig, const Dimensions2i &dim);

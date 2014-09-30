@@ -28,17 +28,13 @@ void Widget::setPos(int x, int y) {
     m_Origin = Point2i(x, y);
 }
 
-void Widget::center(WINDOW *window) {
-    int y, x;
-    getmaxyx(window, y, x);
-    m_Origin.x = (x - m_Dim.width) >> 1;
-    m_Origin.y = (y - m_Dim.height) >> 1;
+void Widget::center(int width, int height) {
+    m_Origin.x = (width - m_Dim.width) >> 1;
+    m_Origin.y = (height - m_Dim.height) >> 1;
 }
-void Widget::center_h(WINDOW *window) {
-    int x = getmaxx(window);
-    m_Origin.x = (x - m_Dim.width) >> 1;
+void Widget::center_h(int width) {
+    m_Origin.x = (width - m_Dim.width) >> 1;
 }
-void Widget::center_v(WINDOW *window) {
-    int y = getmaxy(window);
-    m_Origin.y = (y - m_Dim.height) >> 1;
+void Widget::center_v(int height) {
+    m_Origin.y = (height - m_Dim.height) >> 1;
 }
