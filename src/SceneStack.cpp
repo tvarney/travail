@@ -1,6 +1,7 @@
 
 #include "ui/SceneStack.hpp"
 
+#include <ncurses.h>
 #include "ui/Scene.hpp"
 
 using namespace travail;
@@ -10,7 +11,8 @@ SceneStack::~SceneStack() {
 }
 
 void SceneStack::run() {
-    while(size() > 0) {
+    while(m_Data.size() > 0) {
+        ::clear(); //< Name conflict, make sure the emtpy namespace is used
         (*(m_Data.back())).run();
     }
 }
