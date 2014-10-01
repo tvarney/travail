@@ -3,9 +3,11 @@
 
 using namespace travail;
 
-Widget::Widget() { }
-Widget::Widget(const Point2i &orig, const Dimensions2i &dim) :
-    m_Origin(orig), m_Dim(dim)
+Widget::Widget(WINDOW *window) :
+    m_Window(window)
+{ }
+Widget::Widget(const Point2i &orig, const Dimensions2i &dim, WINDOW *window) :
+    m_Window(window), m_Origin(orig), m_Dim(dim)
 { }
 Widget::~Widget() { }
 
@@ -13,6 +15,9 @@ int Widget::handle(int ch) {
     return ch;
 }
 
+void Widget::setDim(const Dimensions2i &dim) {
+    m_Dim = dim;
+}
 const Dimensions2i & Widget::getDim() const {
     return m_Dim;
 }
@@ -37,4 +42,11 @@ void Widget::center_h(int width) {
 }
 void Widget::center_v(int height) {
     m_Origin.y = (height - m_Dim.height) >> 1;
+}
+
+WINDOW * Widget::getWindow() {
+    return m_Window;
+}
+const WINDOW * Widget::getWindow() const {
+    return m_Window;
 }

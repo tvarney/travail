@@ -8,18 +8,24 @@
 namespace travail {
     class Label : public Widget {
     public:
-        Label();
-        Label(const std::string &str, int attr = 0);
-        Label(int x, int y, const std::string &str, int attr = 0);
-        Label(const Point2i &pos, const std::string &str, int attr = 0);
+        Label(WINDOW *window = stdscr);
+        Label(const std::string &str, WINDOW *win = stdscr);
+        Label(const std::string &str, int attr, WINDOW *win = stdscr);
+        Label(int x, int y, const std::string &str, WINDOW *win = stdscr);
+        Label(int x, int y, const std::string &str, int attr,
+              WINDOW *win = stdscr);
+        Label(const Point2i &pos, const std::string &str,
+              WINDOW *win = stdscr);
+        Label(const Point2i &pos, const std::string &str, int attr,
+              WINDOW *win = stdscr);
         virtual ~Label();
         
-        virtual void draw(WINDOW *window);
+        virtual void draw();
+        virtual void erase();
         
         const Text & getText() const;
-        Text & getText();
+        void setText(const std::string &string, int attr = 0);
     protected:
-        void genDisplay();
         Text m_Text;
     };
 }

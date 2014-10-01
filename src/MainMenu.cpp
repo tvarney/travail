@@ -37,10 +37,10 @@ void MainMenu::run() {
             startx = (getmaxx(stdscr) - maxw) >> 1;
                 
             m_Title.center_h(getmaxx(stdscr));
-            m_Title.draw(stdscr);
+            m_Title.draw();
             for(int i = 0; i < 4; ++i) {
                 m_Labels[i].setPos(startx, 2+i);
-                m_Labels[i].draw(stdscr);
+                m_Labels[i].draw();
             }
             m_Cursor.draw(stdscr, m_Labels[m_Index]);
             

@@ -5,25 +5,41 @@
 
 using namespace travail;
 
-Label::Label() { }
-Label::Label(const std::string &str, int attr) :
-    Label(Point2i(), str, attr)
+Label::Label(WINDOW *window) :
+    Label(Point2i(),"",0,window)
 { }
-Label::Label(int x, int y, const std::string &str, int attr) :
-    Label(Point2i(x, y), str, attr)
+Label::Label(const std::string &str, WINDOW *window) :
+    Label(Point2i(),str,0,window)
 { }
-Label::Label(const Point2i &orig, const std::string &str, int attr) :
-    Widget(orig, Dimensions2i(str.size(), 1)), m_Text(str, attr)
+Label::Label(const std::string &str, int attr, WINDOW *window) :
+    Label(Point2i(),str,attr,window)
 { }
+Label::Label(int x, int y, const std::string &str, WINDOW *window) :
+    Label(Point2i(x,y),str,0,window)
+{ }
+Label::Label(int x, int y, const std::string &str, int attr, WINDOW *window) :
+    Label(Point2i(x,y),str, attr, window)
+{ }
+Label::Label(const Point2i &pos, const std::string &str, WINDOW *window) :
+    Label(pos,str,0,window)
+{ }
+Label::Label(const Point2i &pos, const std::string &str, int attr,
+             WINDOW *window) :
+    Widget(pos, Dimensions2i(str.size(), 1), window), m_Text(str, attr)
+{ }
+
 Label::~Label() { }
 
-void Label::draw(WINDOW *window) {
-    mvwaddchstr(window, m_Origin.y, m_Origin.x, m_Text.getDisplay().data());
+void Label::draw() {
+    mvwaddchstr(m_Window, m_Origin.y, m_Origin.x, m_Text.getDisplay().data());
+}
+void Label::erase() {
+    
 }
 
 const Text & Label::getText() const {
     return m_Text;
 }
-Text & Label::getText() {
-    return m_Text;
+void Label::setText(const std::string &string, int attr) {
+    
 }
