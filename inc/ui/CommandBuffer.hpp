@@ -5,30 +5,29 @@
 #include <list>
 #include <string>
 
+#include "TextField.hpp"
+
 #include "../geom/Point.hpp"
 #include "../util/Curses.hpp"
 
 namespace travail {
-    class CommandBuffer {
+    class CommandBuffer : public TextField {
     public:
-        CommandBuffer();
-        ~CommandBuffer();
+        CommandBuffer(Window *win = stdscr);
+        CommandBuffer(int width, Window *win = stdscr);
+        CommandBuffer(int x, int y, int width, Window *win = stdscr);
+        CommandBuffer(const Point2i &origin, int width, Window *win = stdscr);
+        virtual ~CommandBuffer();
         
-        int handle(Window *win, int ch);
-        void draw(Window *win);
-        void setPos(int y);
+        int handle(int ch);
+        
         void setRecall(std::size_t recall);
         
         void addToHistory(const std::string &string);
-        void clear();
-        
-        const std::string & data() const;
     protected:
-        Point2i m_Origin;
-        int m_ScreenStart, m_ScreenPos;
-        std::size_t m_Index, m_HistoryIndex, m_MaxHistorySize;
-        std::string m_Buffer;
+        std::size_t m_HistoryIndex, m_MaxHistorySize;
         std::list<std::string> m_History;
+        std::list<std::string>::iterator m_HistPos;
         std::string m_Stash;
     };
 }

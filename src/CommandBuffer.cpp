@@ -5,54 +5,68 @@
 
 using namespace travail;
 
-CommandBuffer::CommandBuffer() :
-    m_Origin(0,0), m_ScreenStart(0), m_ScreenPos(0),
-    m_Index(0), m_HistoryIndex(1), m_MaxHistorySize(1000)
+CommandBuffer::CommandBuffer(Window *win) :
+    CommandBuffer(Point2i(0, getmaxy(stdscr) - 1), 79, win)
+{ }
+CommandBuffer::CommandBuffer(int width, Window *win) :
+    CommandBuffer(Point2i(0, getmaxy(stdscr) - 1), width, win)
+{ }
+CommandBuffer::CommandBuffer(int x, int y, int width, Window *win) :
+    CommandBuffer(Point2i(x,y), width, win)
+{ }
+CommandBuffer::CommandBuffer(const Point2i &origin, int width, Window *win) :
+    TextField(origin, width, win),
+    m_HistoryIndex(0), m_MaxHistorySize(1000), m_History(),
+    m_HistPos(m_History.end())
 { }
 CommandBuffer::~CommandBuffer() { }
 
-int CommandBuffer::handle(WINDOW *win, int ch) {
-    if(std::isprint(ch)) {
-        /* Add to buffer */
-        if(m_Index == m_Buffer.size()) {
-            m_Buffer += static_cast<char>(ch);
-        }else {
-            m_Buffer.insert(m_Index, 1, static_cast<char>(ch));
-        }
-        /* Increment position in buffer */
-        m_Index += 1;
-        m_ScreenPos += 1;
-        if(m_Index >= static_cast<std::size_t>(getmaxx(win))) {
-            m_ScreenStart += 10;
-            draw(win);
-        }else {
-            mvwaddch(win, m_Origin.y, m_ScreenPos - 1, ch);
+int CommandBuffer::handle(int ch) {
+    /*
+    if((ch = TextField::handle(ch)) == 0) {
+        if(m_HistoryIndex > 0) {
+            // Editing a history item
+            m_HistoryIndex = 0; //< Mark that we are now not in history
         }
         return 0;
-    }else {
-        switch(ch) {
-        case KEY_BACKSPACE:
-            if(m_Buffer.size() > 0) {
+    }
+    
+    switch(ch) {
+    case KEY_UP:
+        // Check if we have history
+        if(m_History.size() > 0) {
+            if(m_HistoryIndex == 0) {
+                // We are not currently looking through history
+                m_HistoryIndex = 1;
+                m_HistPos = m_History.begin();
+                m_Stash = m_Buffer; // Save our current line
+                setContents(*m_HistPos);
+            }else if(m_HistoryIndex <= m_MaxHistorySize) {
+                if(m_HistoryIndex + 1 <= m_MaxHistorySize) {
+                    m_HistoryIndex += 1;
+                    m_HistPos++;
+                    setContents(*m_HistPos);
+                }
             }
-            return 0;
-        default:
-            return ch;
         }
+        return 0; //< Return indicator that we handled KEY_UP
+    case KEY_DOWN:
+        if(m_History.size() > 0) {
+            if(m_HistoryIndex == 1) {
+                m_HistoryIndex = 0;
+                setContents(m_Stash);
+            }else if(m_HistoryIndex > 1) {
+                m_HistPos--;
+                m_HistoryIndex -= 1;
+                setContents(*m_HistPos);
+            }
+            break;
+        }
+        return 0;
     }
-}
-
-void CommandBuffer::draw(WINDOW *win) {
-    /* Draw visible portion */
-    wmove(stdscr, m_Origin.y, 0);
-    if(m_Buffer.size() > 0) {
-        waddnstr(stdscr, m_Buffer.data()+m_ScreenStart,
-                 m_Buffer.size() - m_ScreenStart);
-    }
-    clrtoeol();
-}
-
-void CommandBuffer::setPos(int y) {
-    m_Origin.y = y;
+    return ch;
+    */
+    return TextField::handle(ch);
 }
 
 void CommandBuffer::setRecall(std::size_t recall) {
@@ -74,13 +88,4 @@ void CommandBuffer::addToHistory(const std::string &string) {
         m_HistoryIndex += 1;
     }
 }
-void CommandBuffer::clear() {
-    m_Index = 0;
-    m_ScreenStart = 0;
-    m_ScreenPos = 0;
-    m_Buffer.clear();
-}
 
-const std::string & CommandBuffer::data() const {
-    return m_Buffer;
-}
