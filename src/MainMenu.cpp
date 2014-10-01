@@ -42,7 +42,7 @@ void MainMenu::run() {
                 m_Labels[i].setPos(startx, 2+i);
                 m_Labels[i].draw();
             }
-            m_Cursor.draw(stdscr, m_Labels[m_Index]);
+            m_Cursor.point(m_Labels[m_Index]);
             
             wrefresh(stdscr);
             break;
@@ -116,7 +116,7 @@ void MainMenu::moveCursor(std::size_t index) {
     mvprintw(getmaxy(stdscr)-1,0, "m_Index: %llu",
              (long long unsigned)index);
 #endif
-    m_Cursor.redraw(stdscr, m_Labels[m_Index], m_Labels[index]);
     m_Index = index;
+    m_Cursor.move(m_Labels[m_Index]);
     wrefresh(stdscr);
 }
