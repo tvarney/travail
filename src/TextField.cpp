@@ -111,7 +111,16 @@ void TextField::addch(char ch) {
             mvwaddch(m_Window, m_Origin.y, m_Origin.x + m_Cursor - 1, ch);
         }
     }else {
-        //TODO: add character insertion when cursor isn't at end of buffer
+        m_Buffer.insert(m_StrIndex, 1, ch);
+        m_Cursor += 1;
+        m_StrIndex += 1;
+        if(m_Cursor >= m_Dim.width) {
+            m_DispIndex += m_Advance;
+            m_Cursor -= m_Advance;
+        }
+        
+        travail::erase(m_Window, m_Origin, m_Dim.width);
+        draw();
     }
 }
 void TextField::delch() {
@@ -128,35 +137,73 @@ void TextField::bspace() {
         m_Buffer.pop_back();
         // Overwrite it on screen
         mvwaddch(m_Window, m_Origin.y, m_Origin.x + m_Cursor - 1, ' ');
-        // Decrement cursor
         m_Cursor -= 1;
-        // Decrement string index
         m_StrIndex -= 1;
-        // Check if we still have stuff and are at the end of the displayed
-        // section
-        if(m_Cursor <= 0 && m_Buffer.size() > 0) {
-            // Move cursor forwards by advance
+        if(m_Cursor == 0 && m_StrIndex > 0) {
             m_Cursor += m_Advance;
             m_DispIndex = ((m_DispIndex >= m_Advance) ?
-                           (m_DispIndex - m_Advance) :
-                           0);
+                           (m_DispIndex - m_Advance) : 0);
             draw();
+        }else {
+            mvwaddch(m_Window, m_Origin.y, m_Origin.x + m_Cursor, ' ');
+            wmove(m_Window, m_Origin.y, m_Origin.x + m_Cursor);
+        }
+    }else if(m_StrIndex > 0) {
+        m_Buffer.erase(m_StrIndex - 1, 1);
+        
+        m_StrIndex -= 1;
+        m_Cursor -= 1;
+        if(m_Cursor == 0 && m_StrIndex > 0) {
+            m_Cursor += m_Advance;
+            m_DispIndex = ((m_DispIndex >= m_Advance) ?
+                           (m_DispIndex - m_Advance) : 0);
         }
         
-        // Make sure we leave the cursor at the new cursor position
-        updateCurs();
-    }else {
-        //TODO: add backspace when cursor isn't at end of buffer
+        travail::erase(m_Window, m_Origin, m_Dim.width);
+        draw();
     }
 }
-void TextField::cursleft() { }
-void TextField::cursright() { }
+void TextField::cursleft() {
+    if(m_Cursor > 0 && m_StrIndex > 0) {
+        m_Cursor -= 1;
+        m_StrIndex -= 1;
+        if(m_Cursor == 0 && m_StrIndex > 0) {
+            m_Cursor += m_Advance;
+            m_DispIndex = ((m_DispIndex >= m_Advance) ?
+                           (m_DispIndex - m_Advance) : 0);
+            travail::erase(m_Window, m_Origin, m_Dim.width);
+            draw();
+        }
+        updateCurs();
+    }
+}
+void TextField::cursright() {
+    if(m_StrIndex != m_Buffer.size()) {
+        m_Cursor += 1; //< Increment screen cursor
+        m_StrIndex += 1; //< Increment string index
+        
+        if(m_Cursor >= m_Dim.width) { //< We went over our allocated dim
+            m_DispIndex += m_Advance; //< Advance the display index
+            m_Cursor -= m_Advance; //< move our cursor back
+            travail::erase(m_Window, m_Origin, m_Dim.width);
+            draw();
+        }
+        updateCurs();
+    }
+}
 void TextField::pword() { }
 void TextField::nword() { }
 void TextField::toeol() { }
 void TextField::tosol() { }
 
 void TextField::cleareol() { }
+
+void TextField::clear() {
+    m_Buffer.clear();
+    m_StrIndex = m_DispIndex = m_Cursor = 0;
+    travail::erase(m_Window, m_Origin, m_Dim.width);
+    updateCurs();
+}
 
 void TextField::updateCurs() const {
     wmove(m_Window, m_Origin.y, m_Origin.x + m_Cursor);
