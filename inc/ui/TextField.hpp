@@ -84,6 +84,8 @@ namespace travail {
         
         virtual void cleareol();
         
+        virtual void clear();
+        
         virtual void updateCurs() const;
     protected:
         int m_StrIndex; ///< Index into the content buffer where we are writing
