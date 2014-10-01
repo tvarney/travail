@@ -2,7 +2,8 @@
 #ifndef TRAVAIL_WIDGET_HPP
 #define TRAVAIL_WIDGET_HPP
 
-#include <ncurses.h>
+#include "../util/Curses.hpp"
+//#include <ncurses.h>
 #include "../geom/Dimensions.hpp"
 #include "../geom/Point.hpp"
 
@@ -25,14 +26,14 @@ namespace travail {
         virtual void center_h(int width);
         virtual void center_v(int height);
         
-        virtual WINDOW * getWindow();
-        virtual const WINDOW * getWindow() const;
+        virtual Window * getWindow();
+        virtual const Window * getWindow() const;
     protected:
-        Widget(WINDOW *window = stdscr);
+        Widget(Window *window = stdscr);
         Widget(const Point2i &orig, const Dimensions2i &dim,
-               WINDOW *window = stdscr);
+               Window *window = stdscr);
         
-        WINDOW *m_Window;
+        Window *m_Window;
         Point2i m_Origin;
         Dimensions2i m_Dim;
     };

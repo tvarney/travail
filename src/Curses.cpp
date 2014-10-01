@@ -1,5 +1,5 @@
 
-#include "util/Functions.hpp"
+#include "util/Curses.hpp"
 
 #include <string>
 
@@ -11,7 +11,7 @@ namespace travail {
 
 using namespace travail;
 
-void travail::erase(WINDOW *window, const Point2i &origin, int nchars) {
+void travail::erase(Window *window, const Point2i &origin, int nchars) {
     // Clip nchars to width of window (sanity check, still may run over)
     nchars = (nchars > getmaxx(window) ? getmaxx(window) : nchars);
     // Resize our eraser string if needed
@@ -21,7 +21,7 @@ void travail::erase(WINDOW *window, const Point2i &origin, int nchars) {
     // Write the eraser string with the given size to the window
     mvwaddnstr(window, origin.y, origin.x, _fn_private::eraser.data(), nchars);
 }
-void travail::erase(WINDOW *window, const Point2i &origin,
+void travail::erase(Window *window, const Point2i &origin,
                     const Dimensions2i &dim)
 {
     // Clip nchars to width of window (sanity check, still may run over)

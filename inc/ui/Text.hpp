@@ -2,9 +2,10 @@
 #ifndef TRAVAIL_TEXT_HPP
 #define TRAVAIL_TEXT_HPP
 
-#include <ncurses.h>
 #include <cstddef>
 #include <string>
+
+#include "../util/Curses.hpp"
 
 namespace travail {
     class Text {
@@ -23,7 +24,7 @@ namespace travail {
         
         std::size_t size() const;
         
-        void draw(WINDOW *win, int x, int y);
+        void draw(Window *win, int x, int y);
     protected:
         void update();
         

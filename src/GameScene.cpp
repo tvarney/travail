@@ -2,8 +2,8 @@
 #include "ui/scenes/GameScene.hpp"
 
 #include <cctype>
-#include <ncurses.h>
 #include "ui/SceneStack.hpp"
+#include "util/Curses.hpp"
 
 using namespace travail;
 
@@ -22,7 +22,7 @@ void GameScene::run() {
     std::basic_string<chtype> div;
     div.resize(width, static_cast<chtype>(' ') | A_STANDOUT);
     
-    mvaddchstr(height - 2, 0, div.data());
+    mvwaddchstr(stdscr, height - 2, 0, div.data());
     
     int ch;
     while((ch = getch()) != 17) {

@@ -5,9 +5,8 @@
 #include <list>
 #include <string>
 
-#include <ncurses.h>
-
 #include "../geom/Point.hpp"
+#include "../util/Curses.hpp"
 
 namespace travail {
     class CommandBuffer {
@@ -15,8 +14,8 @@ namespace travail {
         CommandBuffer();
         ~CommandBuffer();
         
-        int handle(WINDOW *win, int ch);
-        void draw(WINDOW *win);
+        int handle(Window *win, int ch);
+        void draw(Window *win);
         void setPos(int y);
         void setRecall(std::size_t recall);
         

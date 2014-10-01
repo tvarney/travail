@@ -1,8 +1,8 @@
 
 #include "ui/SceneStack.hpp"
 
-#include <ncurses.h>
 #include "ui/Scene.hpp"
+#include "util/Curses.hpp"
 
 using namespace travail;
 

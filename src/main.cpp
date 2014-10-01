@@ -1,8 +1,7 @@
 
-#include <ncurses.h>
-
 #include "ui/SceneStack.hpp"
 #include "ui/scenes/MainMenu.hpp"
+#include "util/Curses.hpp"
 
 int main(int argc, char **argv) {
     initscr();
