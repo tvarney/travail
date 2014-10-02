@@ -70,7 +70,7 @@ std::string & History::get(std::size_t index) {
 void History::add(const std::string &str) {
     if(false == m_Duplicates) {
         // Check for duplicates
-        if(str == m_History.front()) {
+        if(m_History.size() > 0 && str == m_History.front()) {
             // Don't add duplicate
             return;
         }
