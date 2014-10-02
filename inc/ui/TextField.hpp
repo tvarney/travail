@@ -17,6 +17,9 @@ namespace travail {
         virtual const std::string & getContents() const;
         virtual void setContents(const std::string &string);
         
+        virtual void setMaxLength(std::size_t max);
+        std::size_t getMaxLength() const;
+        
         /**
          * \brief Interpret input.
          * 
@@ -88,7 +91,8 @@ namespace travail {
         
         virtual void updateCurs() const;
     protected:
-        std::size_t m_StrIndex; ///< Index into the content buffer where we are writing
+        std::size_t m_MaxStrSize; //< Maximum buffer length
+        std::size_t m_StrIndex; ///< Index into the content buffer
         std::size_t m_DispIndex; ///< Index into content buffer where we start
         std::size_t m_Cursor; ///< Where we are on screen
         std::size_t m_Advance; ///< How much to advance the screen on updates

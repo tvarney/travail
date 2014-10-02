@@ -2,6 +2,7 @@
 #include "ui/TextField.hpp"
 
 #include <cctype>
+#include <limits>
 #include <stdint.h>
 #include "util/Keys.hpp"
 
@@ -18,6 +19,7 @@ TextField::TextField(int x, int y, int width, Window *win) :
 { }
 TextField::TextField(const Point2i &origin, int width, Window *win) :
     Widget(origin, Dimensions2i((width > 2 ? width : 2), 1), win),
+    m_MaxStrSize(std::numeric_limits<std::size_t>::max()),
     m_StrIndex(0), m_DispIndex(0), m_Cursor(0), m_Advance(m_Dim.width / 2)
 {
     m_Buffer.reserve(width);
@@ -33,6 +35,13 @@ void TextField::setContents(const std::string &string) {
     this->toeol();
     travail::erase(m_Window, Point2i(m_Origin.x + m_Cursor, m_Origin.y),
                    m_Dim.width - m_Cursor);
+}
+
+void TextField::setMaxLength(std::size_t max) {
+    m_MaxStrSize = max;
+}
+std::size_t TextField::getMaxLength() const {
+    return m_MaxStrSize;
 }
 
 int TextField::handle(int ch) {
@@ -97,12 +106,18 @@ void TextField::draw() {
 }
 
 void TextField::addch(char ch) {
+    if(m_StrIndex >= m_MaxStrSize) {
+        return;
+    }
+    
     if(m_StrIndex == m_Buffer.size()) {
         m_Buffer.append(1, ch); //< Append character
         m_Cursor += 1; //< Increment screen cursor
         m_StrIndex += 1; //< Increment string index
         
-        if(m_Cursor >= static_cast<uint32_t>(m_Dim.width)) {
+        if(m_Cursor >= static_cast<uint32_t>(m_Dim.width) &&
+           m_StrIndex != m_MaxStrSize)
+        {
             // We went over our allocated dim
             m_DispIndex += m_Advance; //< Advance the display index
             m_Cursor -= m_Advance; //< move our cursor back
@@ -111,10 +126,10 @@ void TextField::addch(char ch) {
             travail::erase(m_Window,
                            Point2i(m_Origin.x + m_Cursor, m_Origin.y),
                            m_Dim.width - m_Cursor);
-            updateCurs();
         }else {
             mvwaddch(m_Window, m_Origin.y, m_Origin.x + m_Cursor - 1, ch);
         }
+        updateCurs();
     }else {
         m_Buffer.insert(m_StrIndex, 1, ch);
         m_Cursor += 1;
@@ -209,10 +224,12 @@ void TextField::toeol() {
         m_Cursor = m_StrIndex;
     }
     draw();
+    updateCurs();
 }
 void TextField::tosol() {
     m_DispIndex = m_Cursor = m_StrIndex = 0;
     draw();
+    updateCurs();
 }
 
 void TextField::cleareol() {
@@ -223,6 +240,7 @@ void TextField::cleareol() {
         // Clear to end of display
         travail::erase(m_Window, Point2i(m_Origin.x + m_Cursor, m_Origin.y),
                        m_Dim.width - m_Cursor);
+        updateCurs();
     }
 }
 
