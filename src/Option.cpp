@@ -20,8 +20,9 @@ Option::Option(const Point2i &origin, Window *w) :
 Option::~Option() { }
 
 void Option::add(const std::string &optstr) {
+    int attr = ((m_Choices.size() == 0) ? m_AttrOn : m_AttrOff);
     m_Choices.emplace_back(Point2i(m_Origin.x + m_Dim.width, m_Origin.y),
-                           optstr, m_AttrOff);
+                           optstr, attr);
     m_Dim.width += static_cast<int>(optstr.size() + 1);
 }
 void Option::remove(const std::string &optstr) {
