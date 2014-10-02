@@ -78,7 +78,7 @@ void Option::setPos(const Point2i &pos) {
 }
 
 bool Option::setChoice(int index) {
-    if(index > 0 && index < static_cast<int>(m_Choices.size()) &&
+    if(index >= 0 && index < static_cast<int>(m_Choices.size()) &&
        static_cast<std::size_t>(index) != m_Index)
     {
         m_Choices[m_Index].setAttr(m_AttrOff);
