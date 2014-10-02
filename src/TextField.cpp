@@ -30,6 +30,8 @@ void TextField::setContents(const std::string &string) {
     m_Buffer = string;
     m_StrIndex = m_Cursor = m_DispIndex = 0;
     this->toeol();
+    travail::erase(m_Window, Point2i(m_Origin.x + m_Cursor, m_Origin.y),
+                   m_Dim.width - m_Cursor);
 }
 
 int TextField::handle(int ch) {
@@ -210,7 +212,16 @@ void TextField::tosol() {
     draw();
 }
 
-void TextField::cleareol() { }
+void TextField::cleareol() {
+    if(m_StrIndex != m_Buffer.size()) {
+        // Erase string content
+        m_Buffer.erase(m_StrIndex, m_Buffer.size() - m_StrIndex);
+        
+        // Clear to end of display
+        travail::erase(m_Window, Point2i(m_Origin.x + m_Cursor, m_Origin.y),
+                       m_Dim.width - m_Cursor);
+    }
+}
 
 void TextField::clear() {
     m_Buffer.clear();
