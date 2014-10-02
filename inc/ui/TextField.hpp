@@ -88,10 +88,10 @@ namespace travail {
         
         virtual void updateCurs() const;
     protected:
-        int m_StrIndex; ///< Index into the content buffer where we are writing
-        int m_DispIndex; ///< Index into content buffer where we start
-        int m_Cursor; ///< Where we are on screen
-        int m_Advance; ///< How much to advance the screen on updates
+        std::size_t m_StrIndex; ///< Index into the content buffer where we are writing
+        std::size_t m_DispIndex; ///< Index into content buffer where we start
+        std::size_t m_Cursor; ///< Where we are on screen
+        std::size_t m_Advance; ///< How much to advance the screen on updates
         std::string m_Buffer; ///< Content buffer
     };
 }

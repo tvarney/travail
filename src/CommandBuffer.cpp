@@ -40,7 +40,8 @@ int CommandBuffer::handle(int ch) {
                 m_HistoryPos = m_History.begin();
                 m_Stash = m_Buffer; // Save our current line
                 setContents(*m_HistoryPos); // Copy history to buffer
-            }else if(m_HistoryIndex + 1 < m_History.size()) {
+            }else if(static_cast<std::size_t>(m_HistoryIndex + 1) <
+                     m_History.size()) {
                 m_HistoryIndex += 1;
                 m_HistoryPos++;
                 setContents(*m_HistoryPos);

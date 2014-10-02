@@ -2,6 +2,7 @@
 #include "ui/TextField.hpp"
 
 #include <cctype>
+#include <stdint.h>
 #include "util/Keys.hpp"
 
 using namespace travail;
@@ -101,7 +102,8 @@ void TextField::addch(char ch) {
         m_Cursor += 1; //< Increment screen cursor
         m_StrIndex += 1; //< Increment string index
         
-        if(m_Cursor >= m_Dim.width) { //< We went over our allocated dim
+        if(m_Cursor >= static_cast<uint32_t>(m_Dim.width)) {
+            // We went over our allocated dim
             m_DispIndex += m_Advance; //< Advance the display index
             m_Cursor -= m_Advance; //< move our cursor back
             draw(); //< Draw ourself
@@ -117,7 +119,7 @@ void TextField::addch(char ch) {
         m_Buffer.insert(m_StrIndex, 1, ch);
         m_Cursor += 1;
         m_StrIndex += 1;
-        if(m_Cursor >= m_Dim.width) {
+        if(m_Cursor >= static_cast<uint32_t>(m_Dim.width)) {
             m_DispIndex += m_Advance;
             m_Cursor -= m_Advance;
         }
@@ -185,7 +187,8 @@ void TextField::cursright() {
         m_Cursor += 1; //< Increment screen cursor
         m_StrIndex += 1; //< Increment string index
         
-        if(m_Cursor >= m_Dim.width) { //< We went over our allocated dim
+        if(m_Cursor >= static_cast<uint32_t>(m_Dim.width)) {
+            // We went over our allocated dim
             m_DispIndex += m_Advance; //< Advance the display index
             m_Cursor -= m_Advance; //< move our cursor back
             travail::erase(m_Window, m_Origin, m_Dim.width);
@@ -199,7 +202,7 @@ void TextField::nword() { }
 void TextField::toeol() {
     m_DispIndex = m_Cursor = 0;
     m_StrIndex = m_Buffer.size();
-    if(m_StrIndex > m_Dim.width) {
+    if(m_StrIndex > static_cast<uint32_t>(m_Dim.width)) {
         m_Cursor = m_Dim.width - 1;
         m_DispIndex = m_StrIndex - m_Dim.width;
     }else {
