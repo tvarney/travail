@@ -36,3 +36,7 @@ void travail::erase(Window *window, const Point2i &origin,
                    nchars);
     }
 }
+
+void travail::move(Window *window, const Point2i &pos) {
+    wmove(window, pos.y, pos.x);
+}

@@ -16,6 +16,8 @@ namespace travail {
     typedef ::WINDOW Window;
     void erase(Window *window, const Point2i &origin, int nchars);
     void erase(Window *window, const Point2i &origin, const Dimensions2i &dim);
+    
+    void move(Window *window, const Point2i &pos);
 }
 
 #endif
