@@ -22,7 +22,6 @@ CommandBuffer::CommandBuffer(const Point2i &origin, int width, Window *win) :
 CommandBuffer::~CommandBuffer() { }
 
 int CommandBuffer::handle(int ch) {
-    /*
     if((ch = TextField::handle(ch)) == 0) {
         if(m_HistoryIndex > 0) {
             // Editing a history item
@@ -65,8 +64,6 @@ int CommandBuffer::handle(int ch) {
         return 0;
     }
     return ch;
-    */
-    return TextField::handle(ch);
 }
 
 void CommandBuffer::setRecall(std::size_t recall) {
