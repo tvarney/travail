@@ -205,7 +205,10 @@ void TextField::toeol() {
     }
     draw();
 }
-void TextField::tosol() { }
+void TextField::tosol() {
+    m_DispIndex = m_Cursor = m_StrIndex = 0;
+    draw();
+}
 
 void TextField::cleareol() { }
 
