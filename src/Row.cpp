@@ -48,7 +48,7 @@ int Row::handle(int ch) {
     case travail::cntrl('b'):
     case '\t':
         // Tab, move forwards
-        if(m_FocusIndex < m_Children.size()) {
+        if(m_FocusIndex < m_Children.size() - 1) {
             m_FocusIndex += 1;
             travail::move(m_Window, getFocused().getPos());
             return 0;
