@@ -8,6 +8,9 @@
 namespace travail {
     class TextField : public Widget {
     public:
+        typedef int (*TextPredicate)(int);
+        
+    public:
         TextField(Window *parent = stdscr);
         TextField(int width, Window *parent = stdscr);
         TextField(int x, int y, int width, Window *parent = stdscr);
@@ -18,7 +21,9 @@ namespace travail {
         virtual void setContents(const std::string &string);
         
         virtual void setMaxLength(std::size_t max);
-        std::size_t getMaxLength() const;
+        virtual std::size_t getMaxLength() const;
+        
+        virtual void setPredicate(TextPredicate validch);
         
         /**
          * \brief Interpret input.
@@ -91,6 +96,8 @@ namespace travail {
         
         virtual void updateCurs() const;
     protected:
+        TextPredicate m_ValidCh;
+        
         std::size_t m_MaxStrSize; //< Maximum buffer length
         std::size_t m_StrIndex; ///< Index into the content buffer
         std::size_t m_DispIndex; ///< Index into content buffer where we start

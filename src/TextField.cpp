@@ -19,7 +19,7 @@ TextField::TextField(int x, int y, int width, Window *win) :
 { }
 TextField::TextField(const Point2i &origin, int width, Window *win) :
     Widget(origin, Dimensions2i((width > 2 ? width : 2), 1), win),
-    m_MaxStrSize(std::numeric_limits<std::size_t>::max()),
+    m_ValidCh(nullptr), m_MaxStrSize(std::numeric_limits<std::size_t>::max()),
     m_StrIndex(0), m_DispIndex(0), m_Cursor(0), m_Advance(m_Dim.width / 2)
 {
     m_Buffer.reserve(width);
@@ -42,6 +42,10 @@ void TextField::setMaxLength(std::size_t max) {
 }
 std::size_t TextField::getMaxLength() const {
     return m_MaxStrSize;
+}
+
+void TextField::setPredicate(TextField::TextPredicate validch) {
+    m_ValidCh = validch;
 }
 
 int TextField::handle(int ch) {
@@ -106,7 +110,9 @@ void TextField::draw() {
 }
 
 void TextField::addch(char ch) {
-    if(m_StrIndex >= m_MaxStrSize) {
+    if((m_ValidCh != nullptr && !(m_ValidCh(ch))) ||
+       m_StrIndex >= m_MaxStrSize)
+    {
         return;
     }
     
