@@ -11,7 +11,7 @@
 using namespace travail;
 
 static int _pred_isheight(int ch) {
-    return (std::isdigit(ch) || ch == '"' || '\'');
+    return (std::isdigit(ch) || ch == '"' || ch == '\'');
 }
 
 NewGameScene::NewGameScene() :
