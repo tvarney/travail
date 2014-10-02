@@ -14,6 +14,7 @@ namespace travail {
         
         virtual int handle(int ch);
         virtual void draw() = 0;
+        virtual void erase();
         
         virtual void setDim(const Dimensions2i &dim);
         virtual const Dimensions2i & getDim() const;

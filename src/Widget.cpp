@@ -14,6 +14,9 @@ Widget::~Widget() { }
 int Widget::handle(int ch) {
     return ch;
 }
+void Widget::erase() {
+    travail::erase(m_Window, m_Origin, m_Dim);
+}
 
 void Widget::setDim(const Dimensions2i &dim) {
     m_Dim = dim;
