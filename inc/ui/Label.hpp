@@ -21,10 +21,10 @@ namespace travail {
         virtual ~Label();
         
         virtual void draw();
-        virtual void erase();
         
         const Text & getText() const;
         void setText(const std::string &string, int attr = 0);
+        void setAttr(int attr);
     protected:
         Text m_Text;
     };

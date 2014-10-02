@@ -33,13 +33,15 @@ Label::~Label() { }
 void Label::draw() {
     mvwaddchstr(m_Window, m_Origin.y, m_Origin.x, m_Text.getDisplay().data());
 }
-void Label::erase() {
-    
-}
 
 const Text & Label::getText() const {
     return m_Text;
 }
 void Label::setText(const std::string &string, int attr) {
-    
+    m_Text.set(string, attr);
+    draw();
+}
+void Label::setAttr(int attr) {
+    m_Text.setAttr(attr);
+    draw();
 }
