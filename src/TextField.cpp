@@ -28,6 +28,7 @@ const std::string & TextField::getContents() const {
 }
 void TextField::setContents(const std::string &string) {
     m_Buffer = string;
+    m_StrIndex = m_Cursor = m_DispIndex = 0;
     this->toeol();
 }
 
@@ -193,7 +194,17 @@ void TextField::cursright() {
 }
 void TextField::pword() { }
 void TextField::nword() { }
-void TextField::toeol() { }
+void TextField::toeol() {
+    m_DispIndex = m_Cursor = 0;
+    m_StrIndex = m_Buffer.size();
+    if(m_StrIndex > m_Dim.width) {
+        m_Cursor = m_Dim.width - 1;
+        m_DispIndex = m_StrIndex - m_Dim.width;
+    }else {
+        m_Cursor = m_StrIndex;
+    }
+    draw();
+}
 void TextField::tosol() { }
 
 void TextField::cleareol() { }
