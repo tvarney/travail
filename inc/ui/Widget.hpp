@@ -22,6 +22,8 @@ namespace travail {
         virtual void setPos(const Point2i &pos);
         virtual void setPos(int x, int y);
         
+        virtual Point2i getCursor() const;
+        
         virtual void center(int width, int height);
         virtual void center_h(int width);
         virtual void center_v(int height);

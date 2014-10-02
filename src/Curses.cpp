@@ -40,3 +40,6 @@ void travail::erase(Window *window, const Point2i &origin,
 void travail::move(Window *window, const Point2i &pos) {
     wmove(window, pos.y, pos.x);
 }
+void travail::move(const Point2i &pos) {
+    wmove(stdscr, pos.y, pos.x);
+}

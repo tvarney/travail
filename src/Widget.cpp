@@ -33,6 +33,12 @@ void Widget::setPos(int x, int y) {
     m_Origin = Point2i(x, y);
 }
 
+Point2i Widget::getCursor() const {
+    int x, y;
+    getbegyx(m_Window, y,x);
+    return Point2i(m_Origin.x + x, m_Origin.y + y);
+}
+
 void Widget::center(int width, int height) {
     m_Origin.x = (width - m_Dim.width) >> 1;
     m_Origin.y = (height - m_Dim.height) >> 1;

@@ -48,9 +48,9 @@ int Column::handle(int ch) {
     case travail::cntrl('n'):
     case KEY_DOWN:
         // Tab, move forwards
-        if(m_FocusIndex < m_Children.size()) {
+        if(m_FocusIndex < m_Children.size() - 1) {
             m_FocusIndex += 1;
-            travail::move(m_Window, getFocused().getPos());
+            travail::move(getFocused().getCursor());
             return 0;
         }
         break;
@@ -59,7 +59,7 @@ int Column::handle(int ch) {
         // Back-tab (Shift+Tab), move backwards
         if(m_FocusIndex > 0) {
             m_FocusIndex -= 1;
-            travail::move(m_Window, getFocused().getPos());
+            travail::move(getFocused().getCursor());
             return 0;
         }
         break;
@@ -71,7 +71,15 @@ void Column::draw() {
     for(Widget *widget : m_Children) {
         widget->draw();
     }
+    travail::move(m_Window, getCursor());
 }
+Point2i Column::getCursor() const {
+    if(!m_Children.empty()) {
+        return getFocused().getCursor();
+    }
+    return Widget::getCursor();
+}
+
 
 std::size_t Column::getFocusIndex() const {
     return m_FocusIndex;

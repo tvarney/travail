@@ -27,6 +27,8 @@ namespace travail {
         virtual int handle(int ch);
         virtual void draw();
         
+        virtual Point2i getCursor() const;
+        
         virtual std::size_t getFocusIndex() const;
         virtual Widget & getFocused();
         virtual const Widget & getFocused() const;

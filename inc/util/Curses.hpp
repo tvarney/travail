@@ -18,6 +18,7 @@ namespace travail {
     void erase(Window *window, const Point2i &origin, const Dimensions2i &dim);
     
     void move(Window *window, const Point2i &pos);
+    void move(const Point2i &pos);
 }
 
 #endif

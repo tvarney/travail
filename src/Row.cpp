@@ -71,6 +71,14 @@ void Row::draw() {
     for(Widget *widget : m_Children) {
         widget->draw();
     }
+    travail::move(stdscr, getCursor());
+}
+
+Point2i Row::getCursor() const {
+    if(!m_Children.empty()) {
+        return getFocused().getCursor();
+    }
+    return Widget::getCursor();
 }
 
 std::size_t Row::getFocusIndex() const {
