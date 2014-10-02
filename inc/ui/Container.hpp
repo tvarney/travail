@@ -12,7 +12,8 @@ namespace travail {
         virtual void add(Widget &widget) = 0;
         virtual void remove(Widget &widget) = 0;
     protected:
-        Container();
+        Container(Window *w);
+        Container(Point2i &orig, Dimensions2i &dim, Window *w);
     };
 }
 
