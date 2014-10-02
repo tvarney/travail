@@ -19,10 +19,10 @@ NewGameScene::NewGameScene() :
     m_Weight(29,2,"Weigth:",A_BOLD,10),
     m_LabelNext(76,21, "Next", A_BOLD)
 {
-    //m_TextName.setMaxChars(40);
-    //m_TextAge.setMaxChars(4);
-    //m_TextHeight.setMaxChars(10); //5'6", 5.123", etc
-    //m_TextWeight.setMaxChars(10); // 163.0001
+    m_Name.setMaxLength(m_Name.getDim().width);
+    m_Age.setMaxLength(m_Age.getDim().width);
+    m_Height.setMaxLength(m_Height.getDim().width); //5'6", 5.123", etc
+    m_Weight.setMaxLength(m_Height.getDim().width); // 163.0001
 }
 NewGameScene::~NewGameScene() { }
 
