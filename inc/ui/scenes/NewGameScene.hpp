@@ -5,6 +5,7 @@
 #include "../Label.hpp"
 #include "../Scene.hpp"
 #include "../InputField.hpp"
+#include "../Option.hpp"
 #include "GameScene.hpp"
 
 namespace travail {
@@ -17,6 +18,7 @@ namespace travail {
     protected:
         Label m_LabelTitle, m_LabelHelp1, m_LabelHelp2;
         InputField m_Name, m_Age, m_Height, m_Weight;
+        Option m_Gender;
         Label m_LabelStr, m_LabelStrVal;
         Label m_LabelDex, m_LabelDexVal;
         Label m_LabelAgl, m_LabelAglVal;

@@ -19,9 +19,10 @@ NewGameScene::NewGameScene() :
     m_LabelHelp1(0,22,"Press UP to move up a line, DOWN to move down a line"),
     m_LabelHelp2(0,23,"Press TAB to move left, SHIFT+Tab to move right"),
     m_Name(0,1,"Name:",A_BOLD,40),
-    m_Age(0,2,"Age:",A_BOLD,4),
-    m_Height(10,2,"Height:",A_BOLD,10),
-    m_Weight(29,2,"Weigth:",A_BOLD,10),
+    m_Age(0,3,"Age:",A_BOLD,4),
+    m_Height(10,3,"Height:",A_BOLD,10),
+    m_Weight(29,3,"Weigth:",A_BOLD,10),
+    m_Gender(0,2),
     m_LabelNext(76,21, "Next", A_BOLD)
 {
     m_Name.setMaxLength(m_Name.getDim().width);
@@ -31,6 +32,11 @@ NewGameScene::NewGameScene() :
     m_Height.setPredicate(&_pred_isheight);
     m_Weight.setMaxLength(m_Height.getDim().width); // 163.0001
     m_Weight.setPredicate(&(std::isdigit));
+    
+    m_Gender.setSelectedAttrib(A_BOLD | A_UNDERLINE);
+    m_Gender.setUnselectedAttrib(A_BOLD);
+    m_Gender.add("Male");
+    m_Gender.add("Female");
 }
 NewGameScene::~NewGameScene() { }
 
@@ -42,6 +48,7 @@ void NewGameScene::run() {
     row1.add(m_Weight);
     
     column.add(m_Name);
+    column.add(m_Gender);
     column.add(row1);
     column.add(m_LabelNext);
     
