@@ -1,6 +1,7 @@
 
 #include "ui/scenes/NewGameScene.hpp"
 
+#include <cctype>
 #include "ui/Column.hpp"
 #include "ui/Row.hpp"
 #include "ui/SceneStack.hpp"
@@ -8,6 +9,10 @@
 #include "util/Keys.hpp"
 
 using namespace travail;
+
+static int _pred_isheight(int ch) {
+    return (std::isdigit(ch) || ch == '"' || '\'');
+}
 
 NewGameScene::NewGameScene() :
     m_LabelTitle(0,0,"::New Game", A_BOLD|A_STANDOUT),
@@ -21,8 +26,11 @@ NewGameScene::NewGameScene() :
 {
     m_Name.setMaxLength(m_Name.getDim().width);
     m_Age.setMaxLength(m_Age.getDim().width);
+    m_Age.setPredicate(&(std::isdigit));
     m_Height.setMaxLength(m_Height.getDim().width); //5'6", 5.123", etc
+    m_Height.setPredicate(&_pred_isheight);
     m_Weight.setMaxLength(m_Height.getDim().width); // 163.0001
+    m_Weight.setPredicate(&(std::isdigit));
 }
 NewGameScene::~NewGameScene() { }
 
