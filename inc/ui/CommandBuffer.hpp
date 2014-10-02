@@ -6,9 +6,9 @@
 #include <string>
 
 #include "TextField.hpp"
-
 #include "../geom/Point.hpp"
 #include "../util/Curses.hpp"
+#include "../util/History.hpp"
 
 namespace travail {
     class CommandBuffer : public TextField {
@@ -21,13 +21,12 @@ namespace travail {
         
         int handle(int ch);
         
-        void setRecall(std::size_t recall);
-        
-        void addToHistory(const std::string &string);
+        History & getHistory();
+        const History & getHistory() const;
     protected:
-        std::size_t m_HistoryIndex, m_MaxHistorySize;
-        std::list<std::string> m_History;
-        std::list<std::string>::iterator m_HistPos;
+        int m_HistoryIndex;
+        History m_History;
+        History::Iterator m_HistoryPos;
         std::string m_Stash;
     };
 }

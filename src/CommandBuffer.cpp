@@ -16,16 +16,15 @@ CommandBuffer::CommandBuffer(int x, int y, int width, Window *win) :
 { }
 CommandBuffer::CommandBuffer(const Point2i &origin, int width, Window *win) :
     TextField(origin, width, win),
-    m_HistoryIndex(0), m_MaxHistorySize(1000), m_History(),
-    m_HistPos(m_History.end())
+    m_HistoryIndex(-1)
 { }
 CommandBuffer::~CommandBuffer() { }
 
 int CommandBuffer::handle(int ch) {
     if((ch = TextField::handle(ch)) == 0) {
-        if(m_HistoryIndex > 0) {
+        if(m_HistoryIndex >= 0) {
             // Editing a history item
-            m_HistoryIndex = 0; //< Mark that we are now not in history
+            m_HistoryIndex = -1; //< Mark that we are now not in history
         }
         return 0;
     }
@@ -34,55 +33,39 @@ int CommandBuffer::handle(int ch) {
     case KEY_UP:
         // Check if we have history
         if(m_History.size() > 0) {
-            if(m_HistoryIndex == 0) {
+            if(m_HistoryIndex < 0) {
                 // We are not currently looking through history
-                m_HistoryIndex = 1;
-                m_HistPos = m_History.begin();
+                m_HistoryIndex = 0;
+                
+                m_HistoryPos = m_History.begin();
                 m_Stash = m_Buffer; // Save our current line
-                setContents(*m_HistPos);
-            }else if(m_HistoryIndex <= m_MaxHistorySize) {
-                if(m_HistoryIndex + 1 <= m_MaxHistorySize) {
-                    m_HistoryIndex += 1;
-                    m_HistPos++;
-                    setContents(*m_HistPos);
-                }
+                setContents(*m_HistoryPos); // Copy history to buffer
+            }else if(m_HistoryIndex + 1 < m_History.size()) {
+                m_HistoryIndex += 1;
+                m_HistoryPos++;
+                setContents(*m_HistoryPos);
             }
         }
         return 0; //< Return indicator that we handled KEY_UP
     case KEY_DOWN:
         if(m_History.size() > 0) {
-            if(m_HistoryIndex == 1) {
-                m_HistoryIndex = 0;
+            if(m_HistoryIndex == 0) {
+                m_HistoryIndex = -1;
                 setContents(m_Stash);
-            }else if(m_HistoryIndex > 1) {
-                m_HistPos--;
+            }else if(m_HistoryIndex > 0) {
+                m_HistoryPos--;
                 m_HistoryIndex -= 1;
-                setContents(*m_HistPos);
+                setContents(*m_HistoryPos);
             }
-            break;
         }
         return 0;
     }
     return ch;
 }
 
-void CommandBuffer::setRecall(std::size_t recall) {
-    if(recall < m_MaxHistorySize) {
-        std::size_t diff = m_MaxHistorySize - recall;
-        while(m_History.size() > recall) {
-            m_History.erase(m_History.begin());
-        }
-        m_HistoryIndex -= diff;
-    }
-    m_MaxHistorySize = recall;
+History & CommandBuffer::getHistory() {
+    return m_History;
 }
-
-void CommandBuffer::addToHistory(const std::string &string) {
-    m_History.push_back(string);
-    if(m_History.size() > m_MaxHistorySize) {
-        m_History.erase(m_History.begin());
-    }else {
-        m_HistoryIndex += 1;
-    }
+const History & CommandBuffer::getHistory() const {
+    return m_History;
 }
-

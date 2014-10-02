@@ -51,7 +51,7 @@ void GameScene::run() {
         case KEY_ENTER:
         case '\n':
         case '\r':
-            m_Buffer.addToHistory(m_Buffer.getContents());
+            m_Buffer.getHistory().add(m_Buffer.getContents());
             m_Buffer.clear();
             m_Buffer.draw();
             wrefresh(stdscr);
