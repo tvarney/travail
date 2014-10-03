@@ -42,6 +42,8 @@ NewGameScene::~NewGameScene() { }
 
 void NewGameScene::run() {
     Column column;
+    column.wrap(false);
+    
     Row row1;
     row1.add(m_Age);
     row1.add(m_Height);
@@ -64,9 +66,13 @@ void NewGameScene::run() {
     while((ch = travail::wgetch(stdscr)) != travail::cntrl('q')) {
         switch(column.handle(ch)) {
         case KEY_ENTER:
+        case '\n':
+        case '\r':
             if(&column.getFocused() == &m_LabelNext) {
                 m_Stack->pop();
                 return;
+            }else {
+                column.next();
             }
             break;
         case 0:
