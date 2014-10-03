@@ -11,6 +11,26 @@ namespace travail {
 
 using namespace travail;
 
+int travail::wgetch(Window *window, int metadelay) {
+    int ch = ::wgetch(window);
+    if(ch == 27) { //< Meta character/escape
+        // Not portable, wont work if NCURSES_OPAQUE is defined as TRUE
+        int delay = window->_delay;
+        ::wtimeout(window, metadelay);
+        int nch = ::wgetch(window);
+        ::wtimeout(window, delay);
+        
+        if(nch != ERR) {
+            if(nch < 128) {
+                ch = 0x80 | nch; //< Return the character with the high-bit set
+            }else {
+                ch = nch; //< Return the character un-modified
+            }
+        }
+    }
+    return ch;
+}
+
 void travail::erase(Window *window, const Point2i &origin, int nchars) {
     // Clip nchars to width of window (sanity check, still may run over)
     nchars = (nchars > getmaxx(window) ? getmaxx(window) : nchars);

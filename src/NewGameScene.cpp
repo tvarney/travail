@@ -61,7 +61,7 @@ void NewGameScene::run() {
     wrefresh(stdscr);
     
     int ch;
-    while((ch = getch()) != travail::cntrl('q')) {
+    while((ch = travail::wgetch(stdscr)) != travail::cntrl('q')) {
         switch(column.handle(ch)) {
         case KEY_ENTER:
             if(&column.getFocused() == &m_LabelNext) {

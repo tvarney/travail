@@ -106,7 +106,7 @@ void MainMenu::run() {
             /* Ignore */
             break;
         }
-    } while(running && (ch = getch()) != 17);
+    } while(running && (ch = travail::wgetch(stdscr)) != 17);
     
     m_Stack->pop();
 }

@@ -33,7 +33,7 @@ void GameScene::run() {
     wrefresh(stdscr);
     
     int ch;
-    while((ch = getch()) != 17) {
+    while((ch = travail::wgetch(stdscr)) != 17) {
 
 #ifndef NDEBUG
         mvwprintw(stdscr, height - 4, 8, "%d", ch); clrtoeol();

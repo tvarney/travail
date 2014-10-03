@@ -14,6 +14,9 @@
 
 namespace travail {
     typedef ::WINDOW Window;
+    
+    int wgetch(Window *window, int metadelay = 100);
+    
     void erase(Window *window, const Point2i &origin, int nchars);
     void erase(Window *window, const Point2i &origin, const Dimensions2i &dim);
     
