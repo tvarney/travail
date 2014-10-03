@@ -4,7 +4,7 @@
 
 #include <cstddef>
 #include <vector>
-#include "Container.hpp"
+#include "LinearContainer.hpp"
 
 namespace travail {
     /**
@@ -15,26 +15,12 @@ namespace travail {
      * Combined with \c Row objects, this object can define a complicated
      * grid like structure.
      */
-    class Column : public Container {
+    class Column : public LinearContainer {
     public:
         Column(Window *w = stdscr);
-        Column(Point2i &origin, Window *w = stdscr);
         virtual ~Column();
         
-        virtual void add(Widget &widget);
-        virtual void remove(Widget &widget);
-        
         virtual int handle(int ch);
-        virtual void draw();
-        
-        virtual Point2i getCursor() const;
-        
-        virtual std::size_t getFocusIndex() const;
-        virtual Widget & getFocused();
-        virtual const Widget & getFocused() const;
-    protected:
-        std::size_t m_FocusIndex;
-        std::vector<Widget *> m_Children;
     };
 }
 
