@@ -63,6 +63,7 @@ int TextField::handle(int ch) {
     }
     
     switch(ch) {
+    case travail::cntrl('d'):
     case KEY_DC:
         this->delch();
         break;
@@ -159,7 +160,28 @@ void TextField::addch(char ch) {
     }
 }
 void TextField::delch() {
-    bspace();
+    if(m_StrIndex == m_Buffer.size()) {
+        return;
+    }
+    
+    m_Buffer.erase(m_StrIndex, 1); //< Erase character we are on
+    
+    if(m_StrIndex == m_Buffer.size()) {
+        mvwaddch(m_Window, m_Origin.y, m_Origin.x + m_Cursor, ' ');
+        updateCurs();
+    }else {
+        int nchars = static_cast<int>(m_Buffer.size() - m_StrIndex);
+        if(static_cast<std::size_t>(nchars) > m_Dim.width - m_Cursor) {
+            nchars = m_Dim.width - m_Cursor;
+            mvwaddnstr(m_Window, m_Origin.y, m_Origin.x + m_Cursor,
+                       m_Buffer.data() + m_DispIndex + m_Cursor, nchars);
+        }else {
+            mvwaddnstr(m_Window, m_Origin.y, m_Origin.x + m_Cursor,
+                       m_Buffer.data() + m_DispIndex + m_Cursor, nchars);
+            waddch(m_Window, ' ');
+        }
+        updateCurs();
+    }
 }
 void TextField::bspace() {
     if(m_Buffer.size() == 0) {
