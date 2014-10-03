@@ -6,7 +6,7 @@
 #include <string>
 
 #include "TextField.hpp"
-#include "../geom/Point.hpp"
+#include "../math/Point.hpp"
 #include "../util/Curses.hpp"
 #include "../util/History.hpp"
 

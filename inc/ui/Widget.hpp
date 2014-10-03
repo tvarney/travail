@@ -4,8 +4,8 @@
 
 #include "../util/Curses.hpp"
 //#include <ncurses.h>
-#include "../geom/Dimensions.hpp"
-#include "../geom/Point.hpp"
+#include "../math/Dimensions.hpp"
+#include "../math/Point.hpp"
 
 namespace travail {
     class Widget {
