@@ -16,7 +16,7 @@ namespace travail {
      * \arg \c ch The character to modify
      * \return The character with only the first 5 bits allowed
      */
-    constexpr char cntrl(char ch) {
+    constexpr unsigned char cntrl(unsigned char ch) {
         return ch & 0x1F;
     }
     /**
@@ -30,7 +30,7 @@ namespace travail {
      * \arg \c ch The character to modify
      * \return The character with the high bit set
      */
-    constexpr char meta(char ch) {
+    constexpr unsigned char meta(unsigned char ch) {
         return ch | 0x80;
     }
 }
