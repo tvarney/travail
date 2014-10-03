@@ -8,6 +8,10 @@
 
 using namespace travail;
 
+static int _word_boundary(int ch) {
+    return (std::isspace(ch) || !(std::isalnum(ch)));
+}
+
 TextField::TextField(Window *win) :
     TextField(Point2i(0,0), 79, win)
 { }
@@ -67,10 +71,10 @@ int TextField::handle(int ch) {
         this->bspace();
         break;
     case KEY_LEFT:
-        this->cursleft();
+        this->cmove(-1);
         break;
     case KEY_RIGHT:
-        this->cursright();
+        this->cmove(1);
         break;
     case KEY_HOME:
         this->tosol();
@@ -85,13 +89,13 @@ int TextField::handle(int ch) {
         this->toeol();
         break;
     case travail::cntrl('b'):
-        this->cursleft();
+        this->cmove(-1);
         break;
     case travail::meta('b'):
         this->pword();
         break;
     case travail::cntrl('f'):
-        this->cursright();
+        this->cmove(1);
         break;
     case travail::meta('f'):
         this->nword();
@@ -193,37 +197,89 @@ void TextField::bspace() {
         draw();
     }
 }
-void TextField::cursleft() {
-    if(m_Cursor > 0 && m_StrIndex > 0) {
-        m_Cursor -= 1;
-        m_StrIndex -= 1;
-        if(m_Cursor == 0 && m_StrIndex > 0) {
-            m_Cursor += m_Advance;
-            m_DispIndex = ((m_DispIndex >= m_Advance) ?
-                           (m_DispIndex - m_Advance) : 0);
-            travail::erase(m_Window, m_Origin, m_Dim.width);
-            draw();
+
+void TextField::cmove(int amount) {
+    int temp;
+    if(amount > 0) {
+        if(m_StrIndex != m_Buffer.size()) {
+            // Clamp amount we are moving so we stay in the buffer
+            amount = ((m_StrIndex + amount > m_Buffer.size()) ?
+                      (m_Buffer.size() - m_StrIndex) : amount);
+            
+            // Update our buffer index
+            m_StrIndex += amount;
+            
+            // Check if this would cause us to run off the end of the display
+            // area
+            temp = amount + m_Cursor;
+            if(temp >= m_Dim.width) {
+                // Get the amount to move our display index to leave just
+                // m_Amount of characters before the cursor
+                m_DispIndex = m_StrIndex - m_Advance;
+                m_Cursor = m_Advance;
+                
+                // Erase ourself
+                erase();
+                draw();
+            }else {
+                // Update our cursor position
+                m_Cursor = temp;
+                updateCurs();
+            }
         }
-        updateCurs();
+    }else if(amount < 0) {
+        if(m_StrIndex != 0) {
+            // Clamp abs(amount) so we stay in the buffer
+            amount = ((static_cast<std::size_t>(-amount) > m_StrIndex) ?
+                      m_StrIndex : -amount);
+            m_StrIndex -= amount;
+            
+            temp = m_Cursor - amount;
+            if(temp <= 0) {
+                // Get the amount to move our display index such that we leave
+                // m_Advance characters after the cursor
+                if((m_Dim.width - m_Advance) > m_StrIndex) {
+                    // We can't move the display index back m_Advance
+                    m_DispIndex = 0;
+                    m_Cursor = m_StrIndex;
+                }else {
+                    m_Cursor = m_Dim.width - m_Advance;
+                    m_DispIndex = m_StrIndex - m_Cursor;
+                }
+                // redraw
+                erase();
+                draw();
+            }else {
+                // Update our cursor position
+                m_Cursor = temp;
+                updateCurs();
+            }
+        }
     }
 }
-void TextField::cursright() {
-    if(m_StrIndex != m_Buffer.size()) {
-        m_Cursor += 1; //< Increment screen cursor
-        m_StrIndex += 1; //< Increment string index
-        
-        if(m_Cursor >= static_cast<uint32_t>(m_Dim.width)) {
-            // We went over our allocated dim
-            m_DispIndex += m_Advance; //< Advance the display index
-            m_Cursor -= m_Advance; //< move our cursor back
-            travail::erase(m_Window, m_Origin, m_Dim.width);
-            draw();
-        }
-        updateCurs();
+
+void TextField::pword() {
+    // Can't move to previous word if we are at the start of the buffer
+    if(m_StrIndex == 0) {
+        return;
     }
+    
+    std::size_t pos = m_StrIndex - 1;
+    while(pos > 0 && _word_boundary(m_Buffer[pos])) { pos -= 1; }
+    while(pos > 0 && !(_word_boundary(m_Buffer[pos]))) { pos -= 1; }
+    
+    cmove(-(static_cast<int>(m_StrIndex - pos)));
 }
-void TextField::pword() { }
-void TextField::nword() { }
+void TextField::nword() {
+    std::size_t blen = m_Buffer.size();
+    if(m_StrIndex == blen) {
+        return;
+    }
+    std::size_t pos = m_StrIndex + 1;
+    while(pos < blen && _word_boundary(m_Buffer[pos])) { pos += 1; }
+    while(pos < blen && !(_word_boundary(m_Buffer[pos]))) { pos += 1; }
+    cmove(static_cast<int>(pos - m_StrIndex));
+}
 void TextField::toeol() {
     m_DispIndex = m_Cursor = 0;
     m_StrIndex = m_Buffer.size();

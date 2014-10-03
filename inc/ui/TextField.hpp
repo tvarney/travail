@@ -67,26 +67,9 @@ namespace travail {
          * character before the cursor and move backwards.
          */
         virtual void bspace();
-        /**
-         * \brief Move the virtual cursor to the left.
-         * 
-         * This method moves the virtual cursor left a single space. This may
-         * cause the \c TextField to move the cursor up to the previous line
-         * if it exists.
-         * This method does nothing if the cursor points to the start of the
-         * content buffer.
-         */
-        virtual void cursleft();
-        /**
-         * \brief Move the virtual cursor to the right.
-         * 
-         * This method moves the virtual cursor right a single space. This may
-         * cause the \c TextField to move the cursor down to the next line if
-         * it exists.
-         * This method does nothing if the cursor points to the end of the
-         * content buffer.
-         */
-        virtual void cursright();
+        
+        virtual void cmove(int amount);
+        
         virtual void pword();
         virtual void nword();
         virtual void toeol();
