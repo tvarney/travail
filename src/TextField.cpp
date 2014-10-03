@@ -48,6 +48,10 @@ void TextField::setPredicate(TextField::TextPredicate validch) {
     m_ValidCh = validch;
 }
 
+Point2i TextField::getCursor() const {
+    return Point2i(m_Origin.x + m_Cursor, m_Origin.y);
+}
+
 int TextField::handle(int ch) {
     if(std::isprint(ch)) {
         this->addch(ch);

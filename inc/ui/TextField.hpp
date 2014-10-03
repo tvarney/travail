@@ -25,6 +25,8 @@ namespace travail {
         
         virtual void setPredicate(TextPredicate validch);
         
+        virtual Point2i getCursor() const;
+        
         /**
          * \brief Interpret input.
          * 

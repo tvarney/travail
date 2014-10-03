@@ -50,7 +50,7 @@ int Row::handle(int ch) {
         // Tab, move forwards
         if(m_FocusIndex < m_Children.size() - 1) {
             m_FocusIndex += 1;
-            travail::move(m_Window, getFocused().getPos());
+            travail::move(m_Window, getFocused().getCursor());
             return 0;
         }
         break;
@@ -59,7 +59,7 @@ int Row::handle(int ch) {
         // Back-tab (Shift+Tab), move backwards
         if(m_FocusIndex > 0) {
             m_FocusIndex -= 1;
-            travail::move(m_Window, getFocused().getPos());
+            travail::move(m_Window, getFocused().getCursor());
             return 0;
         }
         break;
