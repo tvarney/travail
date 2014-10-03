@@ -155,6 +155,7 @@ void TextField::addch(char ch) {
         
         travail::erase(m_Window, m_Origin, m_Dim.width);
         draw();
+        updateCurs();
     }
 }
 void TextField::delch() {
@@ -180,7 +181,7 @@ void TextField::bspace() {
             draw();
         }else {
             mvwaddch(m_Window, m_Origin.y, m_Origin.x + m_Cursor, ' ');
-            wmove(m_Window, m_Origin.y, m_Origin.x + m_Cursor);
+            updateCurs();
         }
     }else if(m_StrIndex > 0) {
         m_Buffer.erase(m_StrIndex - 1, 1);
@@ -195,6 +196,7 @@ void TextField::bspace() {
         
         travail::erase(m_Window, m_Origin, m_Dim.width);
         draw();
+        updateCurs();
     }
 }
 
@@ -221,6 +223,7 @@ void TextField::cmove(int amount) {
                 // Erase ourself
                 erase();
                 draw();
+                updateCurs();
             }else {
                 // Update our cursor position
                 m_Cursor = temp;
@@ -249,6 +252,7 @@ void TextField::cmove(int amount) {
                 // redraw
                 erase();
                 draw();
+                updateCurs();
             }else {
                 // Update our cursor position
                 m_Cursor = temp;
