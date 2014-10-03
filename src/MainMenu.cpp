@@ -50,24 +50,36 @@ void MainMenu::run() {
         case 'N':
             if(m_Index != 0) {
                 moveCursor(0);
+            }else {
+                m_Stack->push(m_Game);
+                m_Stack->push(m_NewGame);
+                return;
             }
             break;
         case 'l':
         case 'L':
             if(m_Index != 1) {
                 moveCursor(1);
+            }else {
+                m_Stack->push(m_Game);
+                return;
             }
             break;
         case 'o':
         case 'O':
             if(m_Index != 2) {
                 moveCursor(2);
+            }else {
+                m_Stack->push(m_Game); //TODO: Replace with m_Options
+                return;
             }
             break;
         case 'q':
         case 'Q':
             if(m_Index != 3) {
                 moveCursor(3);
+            }else {
+                running = false;
             }
             break;
         case KEY_UP:
