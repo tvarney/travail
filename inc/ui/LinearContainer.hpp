@@ -20,6 +20,9 @@ namespace travail {
         virtual void draw();
         virtual int handle(int ch) = 0;
         
+        virtual bool wrap() const;
+        virtual void wrap(bool yes);
+        
         virtual Point2i getCursor() const;
         
         virtual Widget & getFocused();
@@ -29,6 +32,7 @@ namespace travail {
         
         std::size_t m_FocusIndex;
         std::vector<Widget *> m_Children;
+        bool m_Wrap;
     };
 }
 

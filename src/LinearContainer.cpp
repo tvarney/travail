@@ -7,7 +7,7 @@ using namespace travail;
 
 LinearContainer::LinearContainer(Window *win) :
     Container(win),
-    m_FocusIndex(0)
+    m_FocusIndex(0), m_Wrap(true)
 { }
 
 LinearContainer::~LinearContainer() { }
@@ -43,12 +43,20 @@ void LinearContainer::draw() {
     travail::move(m_Window, getCursor());
 }
 
+bool LinearContainer::wrap() const {
+    return m_Wrap;
+}
+
+void LinearContainer::wrap(bool yes) {
+    m_Wrap = yes;
+}
+
 void LinearContainer::next() {
     if(m_Children.size() <= 1) {
         return;
     }
     m_FocusIndex = ((m_FocusIndex < m_Children.size() - 1) ?
-                    (m_FocusIndex + 1) : 0);
+                    (m_FocusIndex + 1) : (m_Wrap ? 0 : m_FocusIndex));
     travail::move(m_Window, getCursor());
 }
 
@@ -56,7 +64,8 @@ void LinearContainer::prev() {
     if(m_Children.size() <= 1) {
         return;
     }
-    m_FocusIndex = ((m_FocusIndex > 0) ? m_FocusIndex : m_Children.size()) - 1;
+    m_FocusIndex = ((m_FocusIndex > 0) ? (m_FocusIndex - 1) :
+                    (m_Wrap ? m_Children.size() - 1 : m_FocusIndex));
     travail::move(m_Window, getCursor());
 }
 
