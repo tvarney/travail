@@ -292,7 +292,10 @@ void TextField::pword() {
     
     std::size_t pos = m_StrIndex - 1;
     while(pos > 0 && _word_boundary(m_Buffer[pos])) { pos -= 1; }
-    while(pos > 0 && !(_word_boundary(m_Buffer[pos]))) { pos -= 1; }
+    while(pos > 1 && !(_word_boundary(m_Buffer[pos - 1]))) { pos -= 1; }
+    if(!(_word_boundary(m_Buffer[pos - 1]))) {
+        pos -= 1;
+    }
     
     cmove(-(static_cast<int>(m_StrIndex - pos)));
 }
