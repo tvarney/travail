@@ -4,6 +4,7 @@
 #include <cctype>
 #include "ui/SceneStack.hpp"
 #include "util/Curses.hpp"
+#include "util/Keys.hpp"
 
 using namespace travail;
 
@@ -83,13 +84,15 @@ void MainMenu::run() {
             }
             break;
         case KEY_UP:
-        case 'u':
+        case travail::cntrl('b'):
+        case travail::cntrl('p'):
             if(m_Index > 0) {
                 moveCursor(m_Index - 1);
             }
             break;
         case KEY_DOWN:
-        case 'j':
+        case travail::cntrl('f'):
+        case travail::cntrl('n'):
             if(m_Index < 3) {
                 moveCursor(m_Index + 1);
             }
