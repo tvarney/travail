@@ -6,7 +6,11 @@
 // This means that most ncurses functions operating on stdscr implicitly
 // are not provided
 #ifndef TRAVAIL_ALLOW_NCURSES_MACROS
-#define NCURSES_NOMACROS
+# define NCURSES_NOMACROS
+#endif
+// Ensure ncurses is never giving us opaque window handles
+#ifndef NCURSES_OPAQUE
+# define NCURSES_OPAQUE 0
 #endif
 #include <ncurses.h>
 #include "../math/Dimensions.hpp"
