@@ -2,7 +2,7 @@
 #ifndef TRAVAIL_LABEL_HPP
 #define TRAVAIL_LABEL_HPP
 
-#include "Text.hpp"
+#include "../graphics/Text.hpp"
 #include "Widget.hpp"
 
 namespace travail {
