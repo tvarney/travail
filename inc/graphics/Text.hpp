@@ -5,7 +5,7 @@
 #include <cstddef>
 #include <string>
 
-#include "../util/Curses.hpp"
+#include "Curses.hpp"
 
 namespace travail {
     class Text {

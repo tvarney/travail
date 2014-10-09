@@ -2,9 +2,9 @@
 #include "ui/scenes/GameScene.hpp"
 
 #include <cctype>
+#include "graphics/Curses.hpp"
 #include "ui/SceneStack.hpp"
 #include "ui/TextField.hpp"
-#include "util/Curses.hpp"
 
 using namespace travail;
 

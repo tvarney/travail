@@ -2,7 +2,7 @@
 #include "ui/SceneStack.hpp"
 
 #include "ui/Scene.hpp"
-#include "util/Curses.hpp"
+#include "graphics/Curses.hpp"
 
 using namespace travail;
 

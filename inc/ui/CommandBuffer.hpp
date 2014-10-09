@@ -6,8 +6,8 @@
 #include <string>
 
 #include "TextField.hpp"
+#include "../graphics/Curses.hpp"
 #include "../math/Point.hpp"
-#include "../util/Curses.hpp"
 #include "../util/History.hpp"
 
 namespace travail {

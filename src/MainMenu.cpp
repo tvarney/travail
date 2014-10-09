@@ -2,8 +2,8 @@
 #include "ui/scenes/MainMenu.hpp"
 
 #include <cctype>
+#include "graphics/Curses.hpp"
 #include "ui/SceneStack.hpp"
-#include "util/Curses.hpp"
 #include "util/Keys.hpp"
 
 using namespace travail;

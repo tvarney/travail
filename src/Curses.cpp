@@ -1,5 +1,5 @@
 
-#include "util/Curses.hpp"
+#include "graphics/Curses.hpp"
 
 #include <string>
 

@@ -1,7 +1,7 @@
 
 #include "ui/Cursor.hpp"
 
-#include "util/Curses.hpp"
+#include "graphics/Curses.hpp"
 
 using namespace travail;
 

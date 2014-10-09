@@ -2,8 +2,7 @@
 #ifndef TRAVAIL_WIDGET_HPP
 #define TRAVAIL_WIDGET_HPP
 
-#include "../util/Curses.hpp"
-//#include <ncurses.h>
+#include "../graphics/Curses.hpp"
 #include "../math/Dimensions.hpp"
 #include "../math/Point.hpp"
 
