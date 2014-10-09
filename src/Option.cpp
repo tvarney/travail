@@ -9,21 +9,46 @@ using namespace travail;
 Option::Option(Window *w) :
     Option(Point2i(0,0), w)
 { }
+Option::Option(Orientation o, Window *w) :
+    Option(o, Point2i(0,0), w)
+{ }
 Option::Option(int x, int y, Window *w) :
     Option(Point2i(x,y), w)
 { }
+Option::Option(Orientation o, int x, int y, Window *w) :
+    Option(o, Point2i(x,y), w)
+{ }
 Option::Option(const Point2i &origin, Window *w) :
-    Widget(origin, Dimensions2i(0,1), w),
-    m_AttrOn(A_UNDERLINE), m_AttrOff(0), m_Index(0)
+    Option(Orientation::Horizontal, origin, w)
+{ }
+Option::Option(Orientation o, const Point2i &orig, Window *w) :
+    Widget(orig, Dimensions2i(0,0), w),
+    m_Orient(o), m_AttrOn(A_UNDERLINE), m_AttrOff(0),
+    m_Index(0)
 { }
 
 Option::~Option() { }
 
 void Option::add(const std::string &optstr) {
     int attr = ((m_Choices.size() == 0) ? m_AttrOn : m_AttrOff);
-    m_Choices.emplace_back(Point2i(m_Origin.x + m_Dim.width, m_Origin.y),
-                           optstr, attr);
-    m_Dim.width += static_cast<int>(optstr.size() + 1);
+    Point2i itemorig;
+    if(m_Orient == Orientation::Horizontal) {
+        // Calculate option position
+        itemorig.x = m_Origin.x + m_Dim.width;
+        itemorig.y = m_Origin.y;
+        // Calculate new size
+        m_Dim = Dimensions2i(static_cast<int>(optstr.size() + 1), 1);
+    }else {
+        // Calculate option position
+        itemorig.x = m_Origin.x;
+        itemorig.y = m_Origin.y + m_Dim.height;
+        // Calculate new size
+        int strlen = static_cast<int>(optstr.size());
+        m_Dim.height += 1;
+        m_Dim.width = (strlen > m_Dim.width ? strlen : m_Dim.width);
+    }
+    // Construct the label
+    m_Choices.emplace_back(itemorig,optstr, attr);
 }
 void Option::remove(const std::string &optstr) {
     auto iter = m_Choices.begin();
@@ -36,6 +61,7 @@ void Option::remove(const std::string &optstr) {
     }
     //auto iter = std::find(m_Choices.begin(), m_Choices.end(), optstr);
     if(iter != m_Choices.end()) {
+        int shift = 0;
         if(m_Choices.size() > 1) {
             // Check if we need to change our choice index
             // This happens when the removed element is behind the current
@@ -49,7 +75,7 @@ void Option::remove(const std::string &optstr) {
             }
             // Move all labels after iter back by one
             // Calculate how much to shift the items
-            int shift = static_cast<int>((*iter).getDim().width) + 1;
+            shift = static_cast<int>((*iter).getDim().width) + 1;
             auto niter = iter; //< Copy the iterator
             while(niter != m_Choices.end()) {
                 Label &label = *niter;
@@ -62,14 +88,39 @@ void Option::remove(const std::string &optstr) {
         }
         
         m_Choices.erase(iter);
+        // Change our dimensions
+        if(m_Orient == Orientation::Horizontal) {
+            // Horizontal option just removes the shift length
+            m_Dim.width -= shift;
+        }else {
+            // Vertical reduces height by 1
+            m_Dim.height -= 1;
+            int strlen = static_cast<int>(optstr.size());
+            if(strlen == m_Dim.width) {
+                // If our strlen was the longest, scan for new longest
+                strlen = 0;
+                for(Label &label : m_Choices) {
+                    if(label.getDim().width > strlen) {
+                        strlen = label.getDim().width;
+                    }
+                }
+                m_Dim.width = strlen;
+            }
+        }
     }
 }
 
 void Option::setPos(int x, int y) {
     // For each label in our choices, subtract current x origin from value
     // and add new x origin
-    for(Label &label : m_Choices) {
-        label.setPos(label.getPos().x - m_Origin.x + x, y);
+    if(m_Orient == Orientation::Horizontal) {
+        for(Label &label : m_Choices) {
+            label.setPos(label.getPos().x - m_Origin.x + x, y);
+        }
+    }else {
+        for(Label &label : m_Choices) {
+            label.setPos(x, label.getPos().y - m_Origin.y + y);
+        }
     }
     m_Origin = Point2i(x,y);
 }
@@ -142,16 +193,32 @@ void Option::draw() {
 }
 
 int Option::handle(int ch) {
-    switch(ch) {
-    case travail::cntrl('b'):
-    case KEY_LEFT:
-        return (setChoice(m_Index - 1) ? 0 : ch);
-    case travail::cntrl('f'):
-    case KEY_RIGHT:
-        return (setChoice(m_Index + 1) ? 0 : ch);
+    switch(m_Orient) {
     default:
-        return ch;
+    case Orientation::Horizontal:
+        switch(ch) {
+        case travail::cntrl('b'):
+        case KEY_LEFT:
+            return (setChoice(m_Index - 1) ? 0 : ch);
+        case travail::cntrl('f'):
+        case KEY_RIGHT:
+            return (setChoice(m_Index + 1) ? 0 : ch);
+        default:
+            return ch;
+        }
+    case Orientation::Vertical:
+        switch(ch) {
+        case travail::cntrl('p'):
+        case KEY_UP:
+            return (setChoice(m_Index - 1) ? 0 : ch);
+        case travail::cntrl('n'):
+        case KEY_DOWN:
+            return (setChoice(m_Index + 1) ? 0 : ch);
+        default:
+            return ch;
+        }
     }
+    return ch;
 }
 
 Point2i Option::getCursor() const {
