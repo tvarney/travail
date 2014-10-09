@@ -11,6 +11,32 @@ namespace travail {
 
 using namespace travail;
 
+int travail::init_curses() {
+    if(initscr() == nullptr) {
+        return 0;
+    }
+    
+    if(has_colors()) {
+        start_color();
+        use_default_colors();
+        
+        init_pair(1, COLOR_RED, -1);
+        init_pair(2, COLOR_GREEN, -1);
+        init_pair(3, COLOR_YELLOW, -1);
+        init_pair(4, COLOR_BLUE, -1);
+        init_pair(5, COLOR_MAGENTA, -1);
+        init_pair(6, COLOR_CYAN, -1);
+        init_pair(7, COLOR_WHITE, COLOR_RED);
+    }
+    
+    raw();
+    noecho();
+    keypad(stdscr, 1);
+    ESCDELAY = 50;
+    
+    return 1;
+}
+
 int travail::wgetch(Window *window, int metadelay) {
     int ch = ::wgetch(window);
     if(ch == 27) { //< Meta character/escape
