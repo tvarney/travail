@@ -20,6 +20,10 @@ int Row::handle(int ch) {
     
     // Allow the currently focused child to handle the character first
     switch(m_Children[m_FocusIndex]->handle(ch)) {
+    case KEY_ENTER:
+    case '\n':
+    case '\r':
+        return (nextNoWrap() ? 0 : ch);
     case travail::cntrl('f'):
     case '\t':
         // Tab, move forwards

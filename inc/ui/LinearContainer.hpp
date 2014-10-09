@@ -15,7 +15,9 @@ namespace travail {
         virtual void remove(Widget &widget);
         
         virtual void next();
+        virtual bool nextNoWrap();
         virtual void prev();
+        virtual bool prevNoWrap();
         
         virtual void draw();
         virtual int handle(int ch) = 0;

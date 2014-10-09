@@ -20,6 +20,10 @@ int Column::handle(int ch) {
     
     // Allow the currently focused child to handle the character first
     switch(m_Children[m_FocusIndex]->handle(ch)) {
+    case KEY_ENTER:
+    case '\n':
+    case '\r':
+        return (nextNoWrap() ? 0 : ch);
     case travail::cntrl('n'):
     case KEY_DOWN:
         // Tab, move forwards

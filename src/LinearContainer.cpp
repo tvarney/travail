@@ -60,6 +60,15 @@ void LinearContainer::next() {
     travail::move(m_Window, getCursor());
 }
 
+bool LinearContainer::nextNoWrap() {
+    if(m_FocusIndex < m_Children.size() - 1) {
+        m_FocusIndex += 1;
+        travail::move(m_Window, getCursor());
+        return true;
+    }
+    return false;
+}
+
 void LinearContainer::prev() {
     if(m_Children.size() <= 1) {
         return;
@@ -67,6 +76,15 @@ void LinearContainer::prev() {
     m_FocusIndex = ((m_FocusIndex > 0) ? (m_FocusIndex - 1) :
                     (m_Wrap ? m_Children.size() - 1 : m_FocusIndex));
     travail::move(m_Window, getCursor());
+}
+
+bool LinearContainer::prevNoWrap() {
+    if(m_FocusIndex > 0) {
+        m_FocusIndex -= 1;
+        travail::move(m_Window, getCursor());
+        return true;
+    }
+    return false;
 }
 
 Point2i LinearContainer::getCursor() const {
