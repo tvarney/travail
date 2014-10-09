@@ -43,14 +43,17 @@ Point2i Widget::getCursor() const {
 }
 
 void Widget::center(int width, int height) {
-    m_Origin.x = (width - m_Dim.width) >> 1;
-    m_Origin.y = (height - m_Dim.height) >> 1;
+    int x = (width - m_Dim.width) >> 1;
+    int y = (height - m_Dim.height) >> 1;
+    setPos(x, y);
 }
 void Widget::center_h(int width) {
-    m_Origin.x = (width - m_Dim.width) >> 1;
+    int x = (width - m_Dim.width) >> 1;
+    setPos(x, getPos().y);
 }
 void Widget::center_v(int height) {
-    m_Origin.y = (height - m_Dim.height) >> 1;
+    int y = (height - m_Dim.height) >> 1;
+    setPos(getPos().x, y);
 }
 
 WINDOW * Widget::getWindow() {
