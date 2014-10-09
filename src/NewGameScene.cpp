@@ -71,8 +71,6 @@ void NewGameScene::run() {
             if(&column.getFocused() == &m_LabelNext) {
                 m_Stack->pop();
                 return;
-            }else {
-                column.next();
             }
             break;
         case 0:
