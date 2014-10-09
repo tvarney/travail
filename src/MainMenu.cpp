@@ -11,7 +11,7 @@ using namespace travail;
 MainMenu::MainMenu() :
     m_Cursor("*", A_BOLD),
     m_Title(0, 0, "Travail Text RPG", COLOR_PAIR(1) | A_BOLD),
-    m_Labels{{0,2,"New Game"},{0,3,"Load Game"},{0,4,"Options"},{0,5,"Quit"}}
+    m_Labels{{0,2,"New Game"},{0,3,"Load Game"},{0,4,"Options"},{0,5,"Info"},{0,6,"Quit"}}
 { }
 MainMenu::~MainMenu() { }
 
@@ -29,7 +29,7 @@ void MainMenu::run() {
         switch(ch) {
         case KEY_RESIZE:
             maxw = 0;
-            for(int i = 0; i < 4; ++i) {
+            for(int i = 0; i < 5; ++i) {
                 len = m_Labels[i].getText().size();
                 if(len > maxw) {
                     maxw = len;
@@ -39,7 +39,7 @@ void MainMenu::run() {
                 
             m_Title.center_h(getmaxx(stdscr));
             m_Title.draw();
-            for(int i = 0; i < 4; ++i) {
+            for(int i = 0; i < 5; ++i) {
                 m_Labels[i].setPos(startx, 2+i);
                 m_Labels[i].draw();
             }
@@ -75,10 +75,19 @@ void MainMenu::run() {
                 return;
             }
             break;
-        case 'q':
-        case 'Q':
+        case 'i':
+        case 'I':
             if(m_Index != 3) {
                 moveCursor(3);
+            }else {
+                m_Stack->push(m_Info);
+                return;
+            }
+            break;
+        case 'q':
+        case 'Q':
+            if(m_Index != 4) {
+                moveCursor(4);
             }else {
                 running = false;
             }
@@ -93,7 +102,7 @@ void MainMenu::run() {
         case KEY_DOWN:
         case travail::cntrl('f'):
         case travail::cntrl('n'):
-            if(m_Index < 3) {
+            if(m_Index < 4) {
                 moveCursor(m_Index + 1);
             }
             break;
@@ -110,6 +119,9 @@ void MainMenu::run() {
             case 2:
                 break;
             case 3:
+                m_Stack->push(m_Info);
+                return;
+            case 4:
                 running = false;
                 break;
             }

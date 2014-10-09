@@ -8,6 +8,7 @@
 
 #include "GameScene.hpp"
 #include "NewGameScene.hpp"
+#include "InfoScene.hpp"
 
 namespace travail {
     class MainMenu : public Scene {
@@ -21,13 +22,14 @@ namespace travail {
     protected:
         GameScene m_Game;
         NewGameScene m_NewGame;
+        InfoScene m_Info;
         //LoadGameScene m_LoadGame;
         //OptionsScene m_Options;
         
         std::size_t m_Index;
         Cursor m_Cursor;
         Label m_Title;
-        Label m_Labels[4];
+        Label m_Labels[5];
     };
 }
 
