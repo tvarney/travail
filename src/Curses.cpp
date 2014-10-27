@@ -37,6 +37,10 @@ int travail::init_curses() {
     return 1;
 }
 
+Dimensions2u travail::getdim(Window *window) {
+    return Dimensions2u(getmaxx(window), getmaxy(window));
+}
+
 int travail::wgetch(Window *window, int metadelay) {
     int ch = ::wgetch(window);
     if(ch == 27) { //< Meta character/escape

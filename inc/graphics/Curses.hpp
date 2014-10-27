@@ -23,6 +23,8 @@ namespace travail {
     
     int wgetch(Window *window, int metadelay = 100);
     
+    Dimensions2u getdim(Window *window);
+    
     void erase(Window *window, const Point2i &origin, int nchars);
     void erase(Window *window, const Point2i &origin, const Dimensions2i &dim);
     
