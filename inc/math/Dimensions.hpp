@@ -2,6 +2,8 @@
 #ifndef TRAVAIL_DIMENSIONS_HPP
 #define TRAVAIL_DIMENSIONS_HPP
 
+#include <stdint.h>
+
 namespace travail {
     template <typename Type>
     class Dimensions {
@@ -36,7 +38,8 @@ namespace travail {
         Type width, height;
     };
     
-    typedef Dimensions<int> Dimensions2i;
+    typedef Dimensions<int32_t> Dimensions2i;
+    typedef Dimensions<uint32_t> Dimensions2u;
 }
 
 #endif

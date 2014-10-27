@@ -2,6 +2,8 @@
 #ifndef TRAVAIL_POINT_HPP
 #define TRAVAIL_POINT_HPP
 
+#include <stdint.h>
+
 namespace travail {
     template <typename Type>
     class Point {
@@ -36,7 +38,8 @@ namespace travail {
         Type x, y;
     };
     
-    typedef Point<int> Point2i;
+    typedef Point<int32_t> Point2i;
+    typedef Point<uint32_t> Point2u;
 }
 
 #endif
