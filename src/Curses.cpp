@@ -2,10 +2,12 @@
 #include "graphics/Curses.hpp"
 
 #include <string>
+#include "graphics/PairMap.hpp"
 
 namespace travail {
     namespace _fn_private {
         static std::string eraser;
+        static travail::PairMap s_PairMap;
     }
 }
 
@@ -20,13 +22,12 @@ int travail::init_curses() {
         start_color();
         use_default_colors();
         
-        init_pair(1, COLOR_RED, -1);
-        init_pair(2, COLOR_GREEN, -1);
-        init_pair(3, COLOR_YELLOW, -1);
-        init_pair(4, COLOR_BLUE, -1);
-        init_pair(5, COLOR_MAGENTA, -1);
-        init_pair(6, COLOR_CYAN, -1);
-        init_pair(7, COLOR_WHITE, COLOR_RED);
+        travail::init_pair(COLOR_RED, -1);
+        travail::init_pair(COLOR_GREEN, -1);
+        travail::init_pair(COLOR_YELLOW, -1);
+        travail::init_pair(COLOR_BLUE, -1);
+        travail::init_pair(COLOR_MAGENTA, -1);
+        travail::init_pair(COLOR_CYAN, -1);
     }
     
     raw();
@@ -35,6 +36,10 @@ int travail::init_curses() {
     ESCDELAY = 50;
     
     return 1;
+}
+
+int travail::init_pair(int fg, int bg) {
+    return _fn_private::s_PairMap.get(fg, bg);
 }
 
 Dimensions2u travail::getdim(Window *window) {
