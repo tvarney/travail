@@ -37,7 +37,7 @@ int32_t PairMap::get(int16_t fg, int16_t bg) {
     p.pair.bg = bg;
     auto iter = m_map.find(p.hash);
     if(iter == m_map.end()) {
-        if(init_pair(m_current, fg, bg) != OK) {
+        if(::init_pair(m_current, fg, bg) != OK) {
             return 0;
         }
         m_map[p.hash] = (pair_id = m_current);
