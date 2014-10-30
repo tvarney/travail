@@ -1,21 +1,28 @@
 
 #include "game/Level.hpp"
 
+#include "game/ILevelGenerator.hpp"
 #include "graphics/Curses.hpp"
 #include "math/Math.hpp"
 
 using namespace travail;
 
 //TODO: Allow for customization of how the tiles are allocated
-Level::Level(uint32_t depth, uint32_t width, uint32_t height) :
-    m_allocator(),
+Level::Level(uint32_t depth, uint32_t width, uint32_t height,
+             const std::vector<TileType> &ttypes, const ILevelGenerator &gen) :
+    m_allocator(), m_ttypes(ttypes),
     m_dim(clamp(width, 80u, 1024u), clamp(height, 24u, 1024u)), m_center(0,0),
     m_depth(depth), m_tlen(m_dim.width * m_dim.height),
     m_tiles(m_allocator.allocate(m_tlen))
+{
+    // Pass the tile data to the given generator
+    gen.generate(m_depth, m_dim, m_ttypes, m_tiles);
+}
+Level::Level(uint32_t depth, const Dimensions2u &dim,
+             const std::vector<TileType> &ttypes, const ILevelGenerator &gen) :
+    Level(depth, dim.width, dim.height, ttypes, gen)
 { }
-Level::Level(uint32_t depth, const Dimensions2u &dim) :
-    Level(depth, dim.width, dim.height)
-{ }
+
 Level::~Level() {
     if(m_tiles) {
         for(Tile *s = m_tiles, *e = m_tiles + m_tlen; s != e; ++s) {
