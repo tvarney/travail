@@ -5,7 +5,13 @@ SRC := ./src
 INC := ./inc
 BIN := ./build
 
-CXX := g++
+# Get compiler; One of:
+#   env CXX
+#   env CPP
+#   g++
+ifndef CXX
+  CXX := g++
+endif
 
 CXXFLAGS := --std=c++11 -Wall --pedantic -I${INC}
 OPT_DBG := -O0 -g
