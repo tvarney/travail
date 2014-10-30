@@ -1,5 +1,6 @@
 
 #ifndef TRAVAIL_GAME_TILE_HPP
+#define TRAVAIL_GAME_TILE_HPP
 
 #include <stdint.h>
 
