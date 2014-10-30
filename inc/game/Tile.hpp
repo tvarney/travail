@@ -9,9 +9,12 @@ namespace travail {
         uint32_t glyph;
         uint32_t character;
         uint32_t attributes;
+        uint32_t flags;
     };
     
     struct Tile {
+        Tile(uint16_t id, uint16_t flags = 0);
+        
         uint16_t tileid;
         uint16_t flags;
     };
