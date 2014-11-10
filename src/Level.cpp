@@ -47,4 +47,16 @@ void Level::render(Window *win, Point2u dest, Rectangle2u area) const {
     Dimensions2u wdim(travail::getdim(win));
     area = travail::clip(area, wdim);
     
+    wmove(win, dest.y, dest.x);
+    uint32_t ymax = area.origin.y + area.dim.height;
+    uint32_t xmax = area.origin.x + area.dim.width;
+    
+    Tile *tptr = m_tiles + area.origin.y * m_dim.width;
+    // Counter plus pointer increment
+    for(uint32_t y = area.origin.y; y < ymax; ++y, tptr += m_dim.width) {
+        for(uint32_t x = area.origin.x; x < xmax; ++x) {
+            // Ask the tile to write itself
+            tptr[x].write(win, m_ttypes);
+        }
+    }
 }

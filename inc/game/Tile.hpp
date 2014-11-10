@@ -3,6 +3,8 @@
 #define TRAVAIL_GAME_TILE_HPP
 
 #include <stdint.h>
+#include <vector>
+#include "graphics/Curses.hpp"
 
 namespace travail {
     struct TileType {
@@ -17,6 +19,8 @@ namespace travail {
         
         uint16_t tileid;
         uint16_t flags;
+        
+        void write(Window *win, const std::vector<TileType> &ttypes) const;
     };
 }
 
