@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <stdexcept>
+#include <new>
 
 using namespace travail;
 
