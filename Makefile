@@ -17,7 +17,7 @@ ifndef CXX
   CXX := g++
 endif
 
-CXXFLAGS := --std=c++11 -Wall --pedantic ${INCLUDES}
+CXXFLAGS := --std=c++14 -Wall --pedantic ${INCLUDES}
 OPT_DBG := -O0 -g
 OPT_REL := -O2 -DNDEBUG
 
