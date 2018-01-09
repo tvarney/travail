@@ -12,17 +12,17 @@ static int _word_boundary(int ch) {
     return (std::isspace(ch) || !(std::isalnum(ch)));
 }
 
-TextField::TextField(Window *win) :
-    TextField(Point2i(0,0), 79, win)
+TextField::TextField() :
+    TextField(Point2i(0,0), 79)
 { }
-TextField::TextField(int width, Window *win) :
-    TextField(Point2i(0,0), width, win)
+TextField::TextField(int width) :
+    TextField(Point2i(0,0), width)
 { }
-TextField::TextField(int x, int y, int width, Window *win) :
-    TextField(Point2i(x,y), width, win)
+TextField::TextField(int x, int y, int width) :
+    TextField(Point2i(x,y), width)
 { }
-TextField::TextField(const Point2i &origin, int width, Window *win) :
-    Widget(origin, Dimensions2i((width > 2 ? width : 2), 1), win),
+TextField::TextField(const Point2i &origin, int width) :
+    Widget(origin, Dimensions2i((width > 2 ? width : 2), 1)),
     m_ValidCh(nullptr), m_MaxStrSize(std::numeric_limits<std::size_t>::max()),
     m_StrIndex(0), m_DispIndex(0), m_Cursor(0), m_Advance(m_Dim.width / 2)
 {

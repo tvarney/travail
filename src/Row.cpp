@@ -6,8 +6,8 @@
 
 using namespace travail;
 
-Row::Row(Window *win) :
-    LinearContainer(win)
+Row::Row() :
+    LinearContainer()
 { }
 
 Row::~Row() { }

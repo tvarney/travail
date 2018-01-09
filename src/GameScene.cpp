@@ -41,7 +41,7 @@ void GameScene::run() {
     m_Stack->pop();
 }
 
-void GameScene::handle(int ch) {
+int GameScene::handle(int ch) {
 #ifndef NDEBUG
     int width, height;
     getmaxyx(stdscr, height, width);
@@ -49,7 +49,7 @@ void GameScene::handle(int ch) {
 #endif
     if(ch == 17) {
         m_Running = false;
-        return;
+        return 0;
     }
     ch = m_Buffer.handle(ch);
 #ifndef NDEBUG
@@ -59,7 +59,7 @@ void GameScene::handle(int ch) {
     switch(ch) {
     case 0:
         wrefresh(stdscr);
-        break;
+        return 0;
     case KEY_ENTER:
     case '\n':
     case '\r':
@@ -67,8 +67,8 @@ void GameScene::handle(int ch) {
         m_Buffer.clear();
         m_Buffer.draw();
         wrefresh(stdscr);
-        break;
+        return 0;
     default:
-        break;
+        return ch;
     }
 }

@@ -8,6 +8,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "travail/graphics/Curses.hpp"
+
 namespace travail {
     class Scene;
     
@@ -16,7 +18,7 @@ namespace travail {
         typedef std::shared_ptr<Scene> SceneRef;
         
     public:
-        SceneStack() = default;
+        SceneStack();
         ~SceneStack();
         
         void run();
@@ -28,6 +30,8 @@ namespace travail {
         }
         bool remove(const std::string & id);
         
+        void setWindow(WINDOW * win);
+        
         void push(const std::string & id);
         void pop();
         void swap(const std::string & id);
@@ -38,6 +42,7 @@ namespace travail {
     protected:
         bool add_impl(const std::string & id, SceneRef & scene);
         
+        WINDOW * m_Window;
         std::vector<std::shared_ptr<Scene>> m_Data;
         std::unordered_map<std::string, std::shared_ptr<Scene>> m_Scenes;
     };

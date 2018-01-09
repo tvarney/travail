@@ -17,7 +17,7 @@ namespace travail {
      */
     class Column : public LinearContainer {
     public:
-        Column(Window *w = stdscr);
+        Column();
         virtual ~Column();
         
         virtual int handle(int ch);

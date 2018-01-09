@@ -2,10 +2,12 @@
 #ifndef TRAVAIL_SCENE_HPP
 #define TRAVAIL_SCENE_HPP
 
+#include "travail/ui/Container.hpp"
+
 namespace travail {
     class SceneStack;
     
-    class Scene {
+    class Scene : public Container {
     public:
         Scene();
         virtual ~Scene();
@@ -17,7 +19,8 @@ namespace travail {
         virtual void resume();
         
         virtual void run() = 0;
-        virtual void handle(int ch) = 0;
+        virtual int handle(int ch) = 0;
+        //virtual void draw() = 0;
         
         void set_stack(SceneStack & stack);
     protected:

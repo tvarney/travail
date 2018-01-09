@@ -2,6 +2,7 @@
 #ifndef TRAVAIL_UI_LINEAR_CONTAINER_HPP
 #define TRAVAIL_UI_LINEAR_CONTAINER_HPP
 
+#include <stdint.h>
 #include <cstddef>
 #include <vector>
 #include "travail/ui/Container.hpp"
@@ -10,9 +11,6 @@ namespace travail {
     class LinearContainer : public Container {
     public:
         virtual ~LinearContainer();
-        
-        virtual void add(Widget &widget);
-        virtual void remove(Widget &widget);
         
         virtual void next();
         virtual bool nextNoWrap();
@@ -27,13 +25,14 @@ namespace travail {
         
         virtual Point2i getCursor() const;
         
-        virtual Widget & getFocused();
-        virtual const Widget & getFocused() const;
+        virtual std::shared_ptr<Widget> & getFocused();
+        virtual const std::shared_ptr<Widget> & getFocused() const;
+
+        virtual std::size_t getFocusedIndex() const;
     protected:
-        LinearContainer(Window *w = stdscr);
+        LinearContainer();
         
         std::size_t m_FocusIndex;
-        std::vector<Widget *> m_Children;
         bool m_Wrap;
     };
 }

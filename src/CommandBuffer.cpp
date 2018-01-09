@@ -5,17 +5,17 @@
 
 using namespace travail;
 
-CommandBuffer::CommandBuffer(Window *win) :
-    CommandBuffer(Point2i(0, getmaxy(stdscr) - 1), 79, win)
+CommandBuffer::CommandBuffer() :
+    CommandBuffer(Point2i(0, getmaxy(stdscr) - 1), 79)
 { }
-CommandBuffer::CommandBuffer(int width, Window *win) :
-    CommandBuffer(Point2i(0, getmaxy(stdscr) - 1), width, win)
+CommandBuffer::CommandBuffer(int width) :
+    CommandBuffer(Point2i(0, getmaxy(stdscr) - 1), width)
 { }
-CommandBuffer::CommandBuffer(int x, int y, int width, Window *win) :
-    CommandBuffer(Point2i(x,y), width, win)
+CommandBuffer::CommandBuffer(int x, int y, int width) :
+    CommandBuffer(Point2i(x,y), width)
 { }
-CommandBuffer::CommandBuffer(const Point2i &origin, int width, Window *win) :
-    TextField(origin, width, win),
+CommandBuffer::CommandBuffer(const Point2i &origin, int width) :
+    TextField(origin, width),
     m_HistoryIndex(-1)
 { }
 CommandBuffer::~CommandBuffer() { }

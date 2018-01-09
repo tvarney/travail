@@ -3,12 +3,12 @@
 
 using namespace travail;
 
-InputField::InputField(Window *w) :
-    InputField(0, 0, "Input:", A_UNDERLINE, 10, w)
+InputField::InputField() :
+    InputField(0, 0, "Input:", A_UNDERLINE, 10)
 { }
 InputField::InputField(int x, int y, const std::string &name, int attr,
-                       int width, Window *w) :
-    TextField(x + name.size() + 1,y,width,w),
+                       int width) :
+    TextField(x + name.size() + 1,y,width),
     m_Label(x,y,name,attr)
 { }
 

@@ -11,10 +11,10 @@ namespace travail {
         typedef int (*TextPredicate)(int);
         
     public:
-        TextField(Window *parent = stdscr);
-        TextField(int width, Window *parent = stdscr);
-        TextField(int x, int y, int width, Window *parent = stdscr);
-        TextField(const Point2i &origin, int width, Window *parent = stdscr);
+        TextField();
+        TextField(int width);
+        TextField(int x, int y, int width);
+        TextField(const Point2i &origin, int width);
         virtual ~TextField();
         
         virtual const std::string & getContents() const;

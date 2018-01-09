@@ -5,41 +5,17 @@
 
 using namespace travail;
 
-LinearContainer::LinearContainer(Window *win) :
-    Container(win),
+std::shared_ptr<Widget> _g_null_widget(nullptr);
+
+LinearContainer::LinearContainer() :
+    Container(),
     m_FocusIndex(0), m_Wrap(true)
 { }
 
 LinearContainer::~LinearContainer() { }
 
-void LinearContainer::add(Widget &widget) {
-    // Check if the widget is already in the row
-    auto iter = std::find(m_Children.begin(), m_Children.end(), &widget);
-    if(iter == m_Children.end()) {
-        // If not, put it at the end
-        m_Children.push_back(&widget);
-    }
-}
-void LinearContainer::remove(Widget &widget) {
-    // Check if the widget is in the row
-    auto iter = std::find(m_Children.begin(), m_Children.end(), &widget);
-    if(iter != m_Children.end()) {
-        // If so, get the distance
-        std::size_t dist = std::distance(m_Children.begin(), iter);
-        // Check if the index of the widget is before our current index
-        if(dist < m_FocusIndex) {
-            // If so, move our focus back one to compensate
-            m_FocusIndex -= 1;
-        }
-        // Remove child from list of children
-        m_Children.erase(iter);
-    }
-}
-
 void LinearContainer::draw() {
-    for(Widget *widget : m_Children) {
-        widget->draw();
-    }
+    Container::draw();
     travail::move(m_Window, getCursor());
 }
 
@@ -89,14 +65,24 @@ bool LinearContainer::prevNoWrap() {
 
 Point2i LinearContainer::getCursor() const {
     if(!m_Children.empty()) {
-        return getFocused().getCursor();
+        return getFocused()->getCursor();
     }
     return Widget::getCursor();
 }
 
-Widget & LinearContainer::getFocused() {
-    return *(m_Children[m_FocusIndex]);
+std::shared_ptr<Widget> & LinearContainer::getFocused() {
+    if(m_Children.empty()) {
+        return _g_null_widget;
+    }
+    return m_Children[m_FocusIndex];
 }
-const Widget & LinearContainer::getFocused() const {
-    return *(m_Children[m_FocusIndex]);
+const std::shared_ptr<Widget> & LinearContainer::getFocused() const {
+    if(m_Children.empty()) {
+        return _g_null_widget;
+    }
+    return m_Children[m_FocusIndex];
+}
+
+std::size_t LinearContainer::getFocusedIndex() const {
+    return m_FocusIndex;
 }

@@ -11,12 +11,12 @@
 namespace travail {
     class Option : public Widget {
     public:
-        Option(Window *w = stdscr);
-        Option(Orientation o, Window *w = stdscr);
-        Option(int x, int y, Window *win = stdscr);
-        Option(Orientation o,int x, int y, Window *win = stdscr); 
-        Option(const Point2i &origin, Window *win = stdscr);
-        Option(Orientation o, const Point2i &orig, Window *win = stdscr);
+        Option();
+        Option(Orientation o);
+        Option(int x, int y);
+        Option(Orientation o,int x, int y); 
+        Option(const Point2i &origin);
+        Option(Orientation o, const Point2i &orig);
         virtual ~Option();
         
         virtual void add(const std::string &optstr);

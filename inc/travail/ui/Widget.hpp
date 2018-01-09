@@ -7,6 +7,8 @@
 #include "travail/math/Point.hpp"
 
 namespace travail {
+    class Container;
+    
     class Widget {
     public:
         virtual ~Widget();
@@ -28,14 +30,21 @@ namespace travail {
         virtual void center_h(int width);
         virtual void center_v(int height);
         
-        virtual Window * getWindow();
-        virtual const Window * getWindow() const;
-    protected:
-        Widget(Window *window = stdscr);
-        Widget(const Point2i &orig, const Dimensions2i &dim,
-               Window *window = stdscr);
+        virtual void setParent(Container * parent);
         
-        Window *m_Window;
+        virtual Container * getParent();
+        virtual const Container * getParent() const;
+
+        virtual void setWindow(WINDOW * window);
+        
+        virtual WINDOW * getWindow();
+        virtual const WINDOW * getWindow() const;
+    protected:
+        Widget();
+        Widget(const Point2i &orig, const Dimensions2i &dim);
+        
+        Container *m_Parent;
+        WINDOW *m_Window;
         Point2i m_Origin;
         Dimensions2i m_Dim;
     };

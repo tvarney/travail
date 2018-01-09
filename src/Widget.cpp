@@ -1,13 +1,15 @@
 
 #include "travail/ui/Widget.hpp"
 
+#include "travail/ui/Container.hpp"
+
 using namespace travail;
 
-Widget::Widget(WINDOW *window) :
-    m_Window(window)
+Widget::Widget() :
+    m_Parent(nullptr), m_Window(nullptr)
 { }
-Widget::Widget(const Point2i &orig, const Dimensions2i &dim, WINDOW *window) :
-    m_Window(window), m_Origin(orig), m_Dim(dim)
+Widget::Widget(const Point2i &orig, const Dimensions2i &dim) :
+    m_Parent(nullptr), m_Window(nullptr), m_Origin(orig), m_Dim(dim)
 { }
 Widget::~Widget() { }
 
@@ -54,6 +56,23 @@ void Widget::center_h(int width) {
 void Widget::center_v(int height) {
     int y = (height - m_Dim.height) >> 1;
     setPos(getPos().x, y);
+}
+
+void Widget::setParent(Container * parent) {
+    m_Parent = parent;
+    setWindow(parent != nullptr ? parent->getWindow() : nullptr);
+}
+
+Container * Widget::getParent() {
+    return m_Parent;
+}
+
+const Container * Widget::getParent() const {
+    return m_Parent;
+}
+
+void Widget::setWindow(WINDOW * window) {
+    m_Window = window;
 }
 
 WINDOW * Widget::getWindow() {

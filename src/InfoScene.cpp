@@ -38,6 +38,7 @@ void InfoScene::run() {
     m_Stack->pop();
 }
 
-void InfoScene::handle(int ch) {
+int InfoScene::handle(int ch) {
     m_Running = false;
+    return 0;
 }

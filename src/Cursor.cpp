@@ -5,14 +5,11 @@
 
 using namespace travail;
 
-Cursor::Cursor(WINDOW *win) :
-    Cursor("->", A_BOLD, win)
+Cursor::Cursor() :
+    Cursor("->", A_BOLD)
 { }
-Cursor::Cursor(const std::string &str, WINDOW *win) :
-    Cursor(str, 0, win)
-{ }
-Cursor::Cursor(const std::string &str, int attr, WINDOW *win) :
-    Label(str, attr, win)
+Cursor::Cursor(const std::string &str, int attr) :
+    Label(str, attr)
 { }
 Cursor::~Cursor() { }
 

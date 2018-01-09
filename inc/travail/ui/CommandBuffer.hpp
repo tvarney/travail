@@ -13,10 +13,10 @@
 namespace travail {
     class CommandBuffer : public TextField {
     public:
-        CommandBuffer(Window *win = stdscr);
-        CommandBuffer(int width, Window *win = stdscr);
-        CommandBuffer(int x, int y, int width, Window *win = stdscr);
-        CommandBuffer(const Point2i &origin, int width, Window *win = stdscr);
+        CommandBuffer();
+        CommandBuffer(int width);
+        CommandBuffer(int x, int y, int width);
+        CommandBuffer(const Point2i &origin, int width);
         virtual ~CommandBuffer();
         
         int handle(int ch);

@@ -6,6 +6,9 @@
 
 using namespace travail;
 
+SceneStack::SceneStack() :
+    m_Window(nullptr)
+{ }
 SceneStack::~SceneStack() {
     (*this).clear();
 }
@@ -14,6 +17,13 @@ void SceneStack::run() {
     while(m_Data.size() > 0) {
         ::clear(); //< Name conflict, make sure the empty namespace is used
         (*(m_Data.back())).run();
+    }
+}
+
+void SceneStack::setWindow(WINDOW * win) {
+    m_Window = win;
+    for(auto it = m_Scenes.begin(); it != m_Scenes.end(); ++it) {
+        it->second->setWindow(win);
     }
 }
 
@@ -69,6 +79,7 @@ bool SceneStack::add_impl(const std::string & id, SceneRef & scene) {
     auto p = m_Scenes.insert({id, scene});
     if(p.second) {
         scene->set_stack(*this);
+        scene->setWindow(m_Window);
     }
     return p.second;
 }

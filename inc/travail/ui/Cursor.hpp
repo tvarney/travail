@@ -7,9 +7,8 @@
 namespace travail {
     class Cursor : public Label {
     public:
-        Cursor(Window *win = stdscr);
-        Cursor(const std::string &str, Window *win = stdscr);
-        Cursor(const std::string &str, int attr, Window *win = stdscr);
+        Cursor();
+        Cursor(const std::string &str, int attr = 0);
         ~Cursor();
         
         void point(const Widget &widget);        

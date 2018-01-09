@@ -15,7 +15,7 @@ namespace travail {
      */
     class Row : public LinearContainer {
     public:
-        Row(Window *w = stdscr);
+        Row();
         virtual ~Row();
         
         virtual int handle(int ch);

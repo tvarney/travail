@@ -11,7 +11,7 @@ namespace travail {
         virtual ~InfoScene();
         
         virtual void run();
-        virtual void handle(int ch);
+        virtual int handle(int ch);
     private:
         bool m_Running;
     };

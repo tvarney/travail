@@ -6,23 +6,23 @@
 
 using namespace travail;
 
-Option::Option(Window *w) :
-    Option(Point2i(0,0), w)
+Option::Option() :
+    Option(Point2i(0,0))
 { }
-Option::Option(Orientation o, Window *w) :
-    Option(o, Point2i(0,0), w)
+Option::Option(Orientation o) :
+    Option(o, Point2i(0,0))
 { }
-Option::Option(int x, int y, Window *w) :
-    Option(Point2i(x,y), w)
+Option::Option(int x, int y) :
+    Option(Point2i(x,y))
 { }
-Option::Option(Orientation o, int x, int y, Window *w) :
-    Option(o, Point2i(x,y), w)
+Option::Option(Orientation o, int x, int y) :
+    Option(o, Point2i(x,y))
 { }
-Option::Option(const Point2i &origin, Window *w) :
-    Option(Orientation::Horizontal, origin, w)
+Option::Option(const Point2i &origin) :
+    Option(Orientation::Horizontal, origin)
 { }
-Option::Option(Orientation o, const Point2i &orig, Window *w) :
-    Widget(orig, Dimensions2i(0,0), w),
+Option::Option(Orientation o, const Point2i &orig) :
+    Widget(orig, Dimensions2i(0,0)),
     m_Orient(o), m_AttrOn(A_UNDERLINE), m_AttrOff(0),
     m_Index(0)
 { }

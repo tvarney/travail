@@ -11,14 +11,15 @@ namespace travail {
         MainMenu();
         virtual ~MainMenu();
         
+        virtual void start();
+        
         virtual void run();
-        virtual void handle(int ch);
+        virtual int handle(int ch);
         
         void moveCursor(std::size_t index);
     protected:
         bool m_Running;
-        Option m_Options;
-        Label m_Title;
+        std::shared_ptr<Option> m_Options;
     };
 }
 
