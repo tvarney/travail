@@ -12,7 +12,9 @@ namespace travail {
         virtual ~GameScene();
         
         virtual void run();
+        virtual void handle(int ch);
     protected:
+        bool m_Running;
         CommandBuffer m_Buffer;
     };
 }

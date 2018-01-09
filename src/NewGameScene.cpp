@@ -37,47 +37,56 @@ NewGameScene::NewGameScene() :
     m_Gender.setUnselectedAttrib(A_BOLD);
     m_Gender.add("Male");
     m_Gender.add("Female");
+
+    m_Column.wrap(false);
+    m_Row.add(m_Age);
+    m_Row.add(m_Height);
+    m_Row.add(m_Weight);
+
+    m_Column.add(m_Name);
+    m_Column.add(m_Gender);
+    m_Column.add(m_Row);
+    m_Column.add(m_LabelNext);
 }
 NewGameScene::~NewGameScene() { }
 
 void NewGameScene::run() {
-    Column column;
-    column.wrap(false);
-    
-    Row row1;
-    row1.add(m_Age);
-    row1.add(m_Height);
-    row1.add(m_Weight);
-    
-    column.add(m_Name);
-    column.add(m_Gender);
-    column.add(row1);
-    column.add(m_LabelNext);
-    
     m_LabelTitle.draw();
     m_LabelHelp1.draw();
     m_LabelHelp2.draw();
     
-    column.draw();
+    m_Column.draw();
     
     wrefresh(stdscr);
     
     int ch;
-    while((ch = travail::wgetch(stdscr)) != travail::cntrl('q')) {
-        switch(column.handle(ch)) {
-        case KEY_ENTER:
-        case '\n':
-        case '\r':
-            if(&column.getFocused() == &m_LabelNext) {
-                m_Stack->pop();
-                return;
-            }
-            break;
-        case 0:
-            wrefresh(stdscr);
-            break;
-        }
+    m_Running = true;
+    while(m_Running) {
+        ch = travail::wgetch(stdscr);
+        handle(ch);
     }
     //TODO: Move back to MainMenu if the loop exits
     m_Stack->pop();
+}
+
+void NewGameScene::handle(int ch) {
+    if(ch == travail::cntrl('q')) {
+        m_Running = false;
+        m_Stack->pop();
+        return;
+    }
+    
+    switch(m_Column.handle(ch)) {
+    case KEY_ENTER:
+    case '\n':
+    case '\r':
+        if(&m_Column.getFocused() == &m_LabelNext) {
+            m_Running = false;
+            return;
+        }
+        break;
+    case 0:
+        wrefresh(stdscr);
+        break;
+    }
 }

@@ -30,8 +30,14 @@ void InfoScene::run() {
         mvprintw(5,0, "  Colors: %d", COLORS);
         mvprintw(6,0, "   Pairs: %d", COLOR_PAIRS);
     }
-    
-    while((getch() == ERR)) { }
-    
+
+    m_Running = true;
+    while(m_Running) {
+        handle(travail::wgetch(stdscr));
+    }
     m_Stack->pop();
+}
+
+void InfoScene::handle(int ch) {
+    m_Running = false;
 }

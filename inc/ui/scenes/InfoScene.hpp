@@ -2,7 +2,7 @@
 #ifndef TRAVAIL_UI_SCENES_INFO_SCENE_HPP
 #define TRAVAIL_UI_SCENES_INFO_SCENE_HPP
 
-#include "../Scene.hpp"
+#include "ui/Scene.hpp"
 
 namespace travail {
     class InfoScene : public Scene {
@@ -11,6 +11,9 @@ namespace travail {
         virtual ~InfoScene();
         
         virtual void run();
+        virtual void handle(int ch);
+    private:
+        bool m_Running;
     };
 }
 

@@ -16,9 +16,11 @@ namespace travail {
         virtual ~MainMenu();
         
         virtual void run();
+        virtual void handle(int ch);
         
         void moveCursor(std::size_t index);
     protected:
+        bool m_Running;
         GameScene m_Game;
         NewGameScene m_NewGame;
         InfoScene m_Info;

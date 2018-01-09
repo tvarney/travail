@@ -33,32 +33,42 @@ void GameScene::run() {
     wrefresh(stdscr);
     
     int ch;
-    while((ch = travail::wgetch(stdscr)) != 17) {
-
-#ifndef NDEBUG
-        mvwprintw(stdscr, height - 4, 8, "%d", ch); clrtoeol();
-#endif
-        ch = m_Buffer.handle(ch);
-#ifndef NDEBUG
-        mvwprintw(stdscr, height - 3, 8, "%d", ch); clrtoeol();
-        m_Buffer.updateCurs();
-#endif
-        
-        switch(ch) {
-        case 0:
-            wrefresh(stdscr);
-            break;
-        case KEY_ENTER:
-        case '\n':
-        case '\r':
-            m_Buffer.getHistory().add(m_Buffer.getContents());
-            m_Buffer.clear();
-            m_Buffer.draw();
-            wrefresh(stdscr);
-            break;
-        default:
-            break;
-        }
+    m_Running = true;
+    while(m_Running) {
+        ch = travail::wgetch(stdscr);
+        handle(ch);
     }
     m_Stack->pop();
+}
+
+void GameScene::handle(int ch) {
+#ifndef NDEBUG
+    int width, height;
+    getmaxyx(stdscr, height, width);
+    mvwprintw(stdscr, height - 4, 8, "%d", ch); clrtoeol();
+#endif
+    if(ch == 17) {
+        m_Running = false;
+        return;
+    }
+    ch = m_Buffer.handle(ch);
+#ifndef NDEBUG
+    mvwprintw(stdscr, height - 3, 8, "%d", ch); clrtoeol();
+    m_Buffer.updateCurs();
+#endif
+    switch(ch) {
+    case 0:
+        wrefresh(stdscr);
+        break;
+    case KEY_ENTER:
+    case '\n':
+    case '\r':
+        m_Buffer.getHistory().add(m_Buffer.getContents());
+        m_Buffer.clear();
+        m_Buffer.draw();
+        wrefresh(stdscr);
+        break;
+    default:
+        break;
+    }
 }

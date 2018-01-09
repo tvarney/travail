@@ -17,6 +17,7 @@ namespace travail {
         virtual void resume();
         
         virtual void run() = 0;
+        virtual void handle(int ch) = 0;
     protected:
         friend class SceneStack;
         SceneStack *m_Stack;
