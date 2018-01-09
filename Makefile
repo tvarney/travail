@@ -5,6 +5,10 @@ SRC := ./src
 INC := ./inc
 BIN := ./build
 
+RAPIDJSON_INC := ./modules/rapidjson/include
+
+INCLUDES := -I${INC} -I${RAPIDJSON_INC}
+
 # Get compiler; One of:
 #   env CXX
 #   env CPP
@@ -13,7 +17,7 @@ ifndef CXX
   CXX := g++
 endif
 
-CXXFLAGS := --std=c++11 -Wall --pedantic -I${INC}
+CXXFLAGS := --std=c++11 -Wall --pedantic ${INCLUDES}
 OPT_DBG := -O0 -g
 OPT_REL := -O2 -DNDEBUG
 
