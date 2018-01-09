@@ -69,8 +69,7 @@ void MainMenu::handle(int ch) {
     case 'n':
     case 'N':
         if(m_Options.getChosenInt() == 0) {
-            m_Stack->push(m_Game);
-            m_Stack->push(m_NewGame);
+            m_Stack->push("NewGame");
             return;
         }else {
             m_Options.setChoice(0);
@@ -80,7 +79,7 @@ void MainMenu::handle(int ch) {
     case 'l':
     case 'L':
         if(m_Options.getChosenInt() == 1) {
-            m_Stack->push(m_Game);
+            m_Stack->push("Game");
             return;
         }else {
             m_Options.setChoice(1);
@@ -90,7 +89,7 @@ void MainMenu::handle(int ch) {
     case 'o':
     case 'O':
         if(m_Options.getChosenInt() == 2) {
-            m_Stack->push(m_Game);
+            m_Stack->push("Game");
             return;
         }else {
             m_Options.setChoice(2);
@@ -102,7 +101,7 @@ void MainMenu::handle(int ch) {
         if(m_Options.setChoice(3)) {
             wrefresh(stdscr);
         }else {
-            m_Stack->push(m_Info);
+            m_Stack->push("Info");
             return;
         }
         break;
@@ -119,15 +118,14 @@ void MainMenu::handle(int ch) {
     case '\r':
         switch(m_Options.getChosenInt()) {
         case 0:
-            m_Stack->push(m_Game);
-            m_Stack->push(m_NewGame);
+            m_Stack->push("NewGame");
             break;
         case 1:
         case 2:
-            m_Stack->push(m_Game);
+            m_Stack->push("Game");
             break;
         case 3:
-            m_Stack->push(m_Info);
+            m_Stack->push("Info");
             break;
         case 4:
             break;

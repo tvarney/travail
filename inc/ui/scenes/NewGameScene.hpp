@@ -9,7 +9,6 @@
 #include "ui/Option.hpp"
 #include "ui/Column.hpp"
 #include "ui/Row.hpp"
-//#include "travail/ui/scenes/GameScene.hpp"
 
 namespace travail {
     class NewGameScene : public Scene {

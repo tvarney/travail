@@ -7,7 +7,7 @@ namespace travail {
     
     class Scene {
     public:
-        Scene() = default;
+        Scene();
         virtual ~Scene();
         
         virtual void start();
@@ -18,8 +18,9 @@ namespace travail {
         
         virtual void run() = 0;
         virtual void handle(int ch) = 0;
+        
+        void set_stack(SceneStack & stack);
     protected:
-        friend class SceneStack;
         SceneStack *m_Stack;
     };
 }

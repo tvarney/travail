@@ -81,6 +81,7 @@ void NewGameScene::handle(int ch) {
     case '\n':
     case '\r':
         if(&m_Column.getFocused() == &m_LabelNext) {
+            m_Stack->swap("Game");
             m_Running = false;
             return;
         }
