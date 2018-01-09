@@ -21,7 +21,7 @@ NewGameScene::NewGameScene() :
     m_Name(0,1,"Name:",A_BOLD,40),
     m_Age(0,3,"Age:",A_BOLD,4),
     m_Height(10,3,"Height:",A_BOLD,10),
-    m_Weight(29,3,"Weigth:",A_BOLD,10),
+    m_Weight(29,3,"Weight:",A_BOLD,10),
     m_Gender(0,2),
     m_LabelNext(76,21, "Next", A_BOLD)
 {
