@@ -8,10 +8,6 @@
 #ifndef TRAVAIL_ALLOW_NCURSES_MACROS
 # define NCURSES_NOMACROS
 #endif
-// Ensure ncurses is never giving us opaque window handles
-#ifndef NCURSES_OPAQUE
-# define NCURSES_OPAQUE 0
-#endif
 #include <ncurses.h>
 #include "../math/Dimensions.hpp"
 #include "../math/Point.hpp"
