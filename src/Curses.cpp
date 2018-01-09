@@ -1,8 +1,8 @@
 
-#include "graphics/Curses.hpp"
+#include "travail/graphics/Curses.hpp"
 
 #include <string>
-#include "graphics/PairMap.hpp"
+#include "travail/graphics/PairMap.hpp"
 
 namespace travail {
     namespace _fn_private {

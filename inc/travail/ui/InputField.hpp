@@ -2,8 +2,8 @@
 #ifndef TRAVAIL_UI_INPUT_FIELD_HPP
 #define TRAVAIL_UI_INPUT_FIELD_HPP
 
-#include "Label.hpp"
-#include "TextField.hpp"
+#include "travail/ui/Label.hpp"
+#include "travail/ui/TextField.hpp"
 
 namespace travail {
     class InputField : public TextField {

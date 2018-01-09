@@ -1,5 +1,5 @@
 
-#include "ui/Widget.hpp"
+#include "travail/ui/Widget.hpp"
 
 using namespace travail;
 

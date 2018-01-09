@@ -2,8 +2,8 @@
 #ifndef TRAVAIL_LABEL_HPP
 #define TRAVAIL_LABEL_HPP
 
-#include "../graphics/Text.hpp"
-#include "Widget.hpp"
+#include "travail/graphics/Text.hpp"
+#include "travail/ui/Widget.hpp"
 
 namespace travail {
     class Label : public Widget {

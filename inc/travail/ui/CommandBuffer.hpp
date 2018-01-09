@@ -5,10 +5,10 @@
 #include <list>
 #include <string>
 
-#include "TextField.hpp"
-#include "../graphics/Curses.hpp"
-#include "../math/Point.hpp"
-#include "../util/History.hpp"
+#include "travail/ui/TextField.hpp"
+#include "travail/graphics/Curses.hpp"
+#include "travail/math/Point.hpp"
+#include "travail/util/History.hpp"
 
 namespace travail {
     class CommandBuffer : public TextField {

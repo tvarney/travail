@@ -1,5 +1,5 @@
 
-#include "game/Location.hpp"
+#include "travail/game/Location.hpp"
 
 using namespace travail;
 

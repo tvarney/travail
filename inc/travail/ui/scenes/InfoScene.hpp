@@ -2,7 +2,7 @@
 #ifndef TRAVAIL_UI_SCENES_INFO_SCENE_HPP
 #define TRAVAIL_UI_SCENES_INFO_SCENE_HPP
 
-#include "ui/Scene.hpp"
+#include "travail/ui/Scene.hpp"
 
 namespace travail {
     class InfoScene : public Scene {

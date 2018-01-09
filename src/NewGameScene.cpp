@@ -1,12 +1,10 @@
 
-#include "ui/scenes/NewGameScene.hpp"
+#include "travail/ui/scenes/NewGameScene.hpp"
 
 #include <cctype>
-#include "graphics/Curses.hpp"
-#include "ui/Column.hpp"
-#include "ui/Row.hpp"
-#include "ui/SceneStack.hpp"
-#include "util/Keys.hpp"
+#include "travail/graphics/Curses.hpp"
+#include "travail/ui/SceneStack.hpp"
+#include "travail/util/Keys.hpp"
 
 using namespace travail;
 

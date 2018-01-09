@@ -1,5 +1,5 @@
 
-#include "graphics/Text.hpp"
+#include "travail/graphics/Text.hpp"
 
 using namespace travail;
 

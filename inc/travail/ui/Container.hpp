@@ -2,7 +2,7 @@
 #ifndef TRAVAIL_CONTAINER_HPP
 #define TRAVAIL_CONTAINER_HPP
 
-#include "Widget.hpp"
+#include "travail/ui/Widget.hpp"
 
 namespace travail {
     class Container : public Widget {

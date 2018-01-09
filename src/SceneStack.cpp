@@ -1,8 +1,8 @@
 
-#include "ui/SceneStack.hpp"
+#include "travail/ui/SceneStack.hpp"
 
-#include "ui/Scene.hpp"
-#include "graphics/Curses.hpp"
+#include "travail/ui/Scene.hpp"
+#include "travail/graphics/Curses.hpp"
 
 using namespace travail;
 

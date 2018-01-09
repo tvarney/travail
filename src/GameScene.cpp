@@ -1,10 +1,10 @@
 
-#include "ui/scenes/GameScene.hpp"
+#include "travail/ui/scenes/GameScene.hpp"
 
 #include <cctype>
-#include "graphics/Curses.hpp"
-#include "ui/SceneStack.hpp"
-#include "ui/TextField.hpp"
+#include "travail/graphics/Curses.hpp"
+#include "travail/ui/SceneStack.hpp"
+#include "travail/ui/TextField.hpp"
 
 using namespace travail;
 

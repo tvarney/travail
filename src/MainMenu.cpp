@@ -1,12 +1,12 @@
 
-#include "ui/scenes/MainMenu.hpp"
+#include "travail/ui/scenes/MainMenu.hpp"
 
 #include <cctype>
-#include "graphics/Curses.hpp"
-#include "ui/Option.hpp"
-#include "ui/Orientation.hpp"
-#include "ui/SceneStack.hpp"
-#include "util/Keys.hpp"
+#include "travail/graphics/Curses.hpp"
+#include "travail/ui/Option.hpp"
+#include "travail/ui/Orientation.hpp"
+#include "travail/ui/SceneStack.hpp"
+#include "travail/util/Keys.hpp"
 
 using namespace travail;
 

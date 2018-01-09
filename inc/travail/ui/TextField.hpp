@@ -3,7 +3,7 @@
 #define TRAVAIL_TEXT_FIELD_HPP
 
 #include <string>
-#include "Widget.hpp"
+#include "travail/ui/Widget.hpp"
 
 namespace travail {
     class TextField : public Widget {

@@ -1,7 +1,7 @@
 
-#include "graphics/PairMap.hpp"
+#include "travail/graphics/PairMap.hpp"
 
-#include "graphics/Curses.hpp"
+#include "travail/graphics/Curses.hpp"
 
 using namespace travail;
 

@@ -2,13 +2,13 @@
 #ifndef TRAVAIL_NEW_GAME_SCENE_HPP
 #define TRAVAIL_NEW_GAME_SCENE_HPP
 
-#include "ui/Scene.hpp"
+#include "travail/ui/Scene.hpp"
 
-#include "ui/Label.hpp"
-#include "ui/InputField.hpp"
-#include "ui/Option.hpp"
-#include "ui/Column.hpp"
-#include "ui/Row.hpp"
+#include "travail/ui/Label.hpp"
+#include "travail/ui/InputField.hpp"
+#include "travail/ui/Option.hpp"
+#include "travail/ui/Column.hpp"
+#include "travail/ui/Row.hpp"
 
 namespace travail {
     class NewGameScene : public Scene {

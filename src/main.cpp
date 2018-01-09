@@ -1,10 +1,10 @@
 
-#include "graphics/Curses.hpp"
-#include "ui/SceneStack.hpp"
-#include "ui/scenes/GameScene.hpp"
-#include "ui/scenes/InfoScene.hpp"
-#include "ui/scenes/MainMenu.hpp"
-#include "ui/scenes/NewGameScene.hpp"
+#include "travail/graphics/Curses.hpp"
+#include "travail/ui/SceneStack.hpp"
+#include "travail/ui/scenes/GameScene.hpp"
+#include "travail/ui/scenes/InfoScene.hpp"
+#include "travail/ui/scenes/MainMenu.hpp"
+#include "travail/ui/scenes/NewGameScene.hpp"
 
 #include <iostream>
 

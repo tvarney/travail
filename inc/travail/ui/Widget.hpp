@@ -2,9 +2,9 @@
 #ifndef TRAVAIL_WIDGET_HPP
 #define TRAVAIL_WIDGET_HPP
 
-#include "../graphics/Curses.hpp"
-#include "../math/Dimensions.hpp"
-#include "../math/Point.hpp"
+#include "travail/graphics/Curses.hpp"
+#include "travail/math/Dimensions.hpp"
+#include "travail/math/Point.hpp"
 
 namespace travail {
     class Widget {

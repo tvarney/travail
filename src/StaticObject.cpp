@@ -1,5 +1,5 @@
 
-#include "game/StaticObject.hpp"
+#include "travail/game/StaticObject.hpp"
 
 using namespace travail;
 

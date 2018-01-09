@@ -2,7 +2,7 @@
 #ifndef TRAVAIL_CURSOR_HPP
 #define TRAVAIL_CURSOR_HPP
 
-#include "Label.hpp"
+#include "travail/ui/Label.hpp"
 
 namespace travail {
     class Cursor : public Label {

@@ -4,9 +4,9 @@
 
 #include <string>
 #include <vector>
-#include "Label.hpp"
-#include "Orientation.hpp"
-#include "Widget.hpp"
+#include "travail/ui/Label.hpp"
+#include "travail/ui/Orientation.hpp"
+#include "travail/ui/Widget.hpp"
 
 namespace travail {
     class Option : public Widget {

@@ -1,5 +1,5 @@
 
-#include "ui/Label.hpp"
+#include "travail/ui/Label.hpp"
 
 #include <cstddef>
 
