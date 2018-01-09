@@ -33,7 +33,7 @@ int travail::init_curses() {
     raw();
     noecho();
     keypad(stdscr, 1);
-    ESCDELAY = 50;
+    set_escdelay(50);
     
     return 1;
 }
@@ -49,8 +49,7 @@ Dimensions2u travail::getdim(Window *window) {
 int travail::wgetch(Window *window, int metadelay) {
     int ch = ::wgetch(window);
     if(ch == 27) { //< Meta character/escape
-        // Not portable, wont work if NCURSES_OPAQUE is defined as TRUE
-        int delay = window->_delay;
+        int delay = ::wgetdelay(window);
         ::wtimeout(window, metadelay);
         int nch = ::wgetch(window);
         ::wtimeout(window, delay);
