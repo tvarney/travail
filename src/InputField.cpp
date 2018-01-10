@@ -18,6 +18,11 @@ void InputField::setLabel(const std::string &name, int attr) {
     m_Label.setText(name, attr);
 }
 
+void InputField::setWindow(WINDOW * window) {
+    Widget::setWindow(window);
+    m_Label.setWindow(window);
+}
+
 void InputField::draw() {
     m_Label.draw();
     TextField::draw();

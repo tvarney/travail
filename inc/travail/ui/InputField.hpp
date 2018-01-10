@@ -14,6 +14,8 @@ namespace travail {
         
         virtual void setLabel(const std::string &name, int attr = 0);
         
+        virtual void setWindow(WINDOW * window);
+        
         virtual void draw();
     protected:
         Label m_Label;
