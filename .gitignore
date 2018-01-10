@@ -3,5 +3,5 @@
 *.debug.o
 .present
 
-travail
-travail.debug
+./build/travail
+./build/travail.debug
