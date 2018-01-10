@@ -2,6 +2,7 @@
 #include "travail/ui/Container.hpp"
 
 #include <algorithm>
+#include <iostream>
 
 using namespace travail;
 
@@ -52,6 +53,10 @@ void Container::remove(std::shared_ptr<Widget> widget) {
 }
 
 void Container::setWindow(WINDOW *window) {
+    std::cout << ((void *)this) <<
+        "->Container::setWindow(): Changing window pointer from " <<
+        m_Window << " to " << window << std::endl;
+    m_Window = window;
     for(auto iter = m_Children.begin(); iter != m_Children.end(); ++iter) {
         (*iter)->setWindow(window);
     }

@@ -3,6 +3,10 @@
 
 #include "travail/ui/Container.hpp"
 
+#ifndef NDEBUG
+# include <iostream>
+#endif
+
 using namespace travail;
 
 Widget::Widget() :
@@ -72,6 +76,11 @@ const Container * Widget::getParent() const {
 }
 
 void Widget::setWindow(WINDOW * window) {
+#ifndef NDEBUG
+    std::cout << ((void *)this) <<
+        "->Widget::setWindow(): Changing window pointer from " <<
+        m_Window << " to " << window << std::endl;
+#endif
     m_Window = window;
 }
 

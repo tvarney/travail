@@ -2,6 +2,10 @@
 #include "travail/ui/Option.hpp"
 
 #include <algorithm>
+#ifndef NDEBUG
+# include <iostream>
+#endif
+
 #include "travail/util/Keys.hpp"
 
 using namespace travail;
@@ -49,6 +53,7 @@ void Option::add(const std::string &optstr) {
     }
     // Construct the label
     m_Choices.emplace_back(itemorig,optstr, attr);
+    m_Choices[m_Choices.size() - 1].setWindow(m_Window);
 }
 void Option::remove(const std::string &optstr) {
     auto iter = m_Choices.begin();
@@ -219,6 +224,13 @@ int Option::handle(int ch) {
         }
     }
     return ch;
+}
+
+void Option::setWindow(WINDOW *win) {
+    m_Window = win;
+    for(auto it = m_Choices.begin(); it != m_Choices.end(); ++it) {
+        it->setWindow(win);
+    }
 }
 
 Point2i Option::getCursor() const {

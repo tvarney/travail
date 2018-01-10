@@ -26,9 +26,10 @@ int main(int argc, char **argv) {
     stack.add("Game", std::make_shared<travail::GameScene>());
     stack.add("Info", std::make_shared<travail::InfoScene>());
 
-    std::cout << "main(): Setting stack window instance..." << std::endl;
+    std::cout << "main(): Setting stack window instance to stdscr (" <<
+        stdscr << ")..." << std::endl;
     stack.setWindow(stdscr);
-
+    
     std::cout << "main(): Pushing MainMenu onto top of stack..." << std::endl;
     stack.push("MainMenu");
     std::cout << "main(): Calling SceneStack::run()..." << std::endl;
