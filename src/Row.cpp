@@ -26,11 +26,13 @@ int Row::handle(int ch) {
         return (nextNoWrap() ? 0 : ch);
     case travail::cntrl('f'):
     case '\t':
+    case KEY_RIGHT:
         // Tab, move forwards
         next();
         return 0;
     case travail::cntrl('b'):
     case KEY_BTAB:
+    case KEY_LEFT:
         prev();
         return 0;
     }

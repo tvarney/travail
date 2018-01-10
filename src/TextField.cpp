@@ -4,6 +4,7 @@
 #include <cctype>
 #include <limits>
 #include <stdint.h>
+
 #include "travail/util/Keys.hpp"
 
 using namespace travail;
@@ -57,7 +58,7 @@ Point2i TextField::getCursor() const {
 }
 
 int TextField::handle(int ch) {
-    if(std::isprint(ch)) {
+    if(ch < 127 && ch > 31) {
         this->addch(ch);
         return 0;
     }
@@ -71,32 +72,30 @@ int TextField::handle(int ch) {
     case KEY_BACKSPACE:
         this->bspace();
         break;
+    case travail::cntrl('b'):
     case KEY_LEFT:
+        if(m_StrIndex == 0) {
+            return ch;
+        }
         this->cmove(-1);
         break;
+    case travail::cntrl('f'):
     case KEY_RIGHT:
+        if(m_StrIndex == m_Buffer.size()) {
+            return ch;
+        }
         this->cmove(1);
         break;
+    case travail::cntrl('a'):
     case KEY_HOME:
         this->tosol();
         break;
+    case travail::cntrl('e'):
     case KEY_END:
         this->toeol();
         break;
-    case travail::cntrl('a'):
-        this->tosol();
-        break;
-    case travail::cntrl('e'):
-        this->toeol();
-        break;
-    case travail::cntrl('b'):
-        this->cmove(-1);
-        break;
     case travail::meta('b'):
         this->pword();
-        break;
-    case travail::cntrl('f'):
-        this->cmove(1);
         break;
     case travail::meta('f'):
         this->nword();
