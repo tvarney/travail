@@ -18,9 +18,7 @@ namespace travail {
         virtual void pause();
         virtual void resume();
         
-        virtual void run() = 0;
         virtual int handle(int ch) = 0;
-        //virtual void draw() = 0;
         
         void set_stack(SceneStack & stack);
     protected:

@@ -20,7 +20,7 @@ const char * get_terminal_desc() {
 InfoScene::InfoScene() { }
 InfoScene::~InfoScene() { }
 
-void InfoScene::run() {
+void InfoScene::draw() {
     int term_has_colors = ::has_colors();
     mvprintw(0,0,"Terminal Information: Press any key to return");
     mvprintw(1,0,"Name: %s", ::get_terminal_name());
@@ -30,15 +30,9 @@ void InfoScene::run() {
         mvprintw(5,0, "  Colors: %d", COLORS);
         mvprintw(6,0, "   Pairs: %d", COLOR_PAIRS);
     }
-
-    m_Running = true;
-    while(m_Running) {
-        handle(travail::wgetch(stdscr));
-    }
-    m_Stack->pop();
 }
 
 int InfoScene::handle(int ch) {
-    m_Running = false;
+    m_Stack->pop();
     return 0;
 }

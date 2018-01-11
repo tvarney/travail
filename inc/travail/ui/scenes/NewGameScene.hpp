@@ -13,7 +13,6 @@ namespace travail {
         NewGameScene();
         virtual ~NewGameScene();
         
-        virtual void run();
         virtual int handle(int ch);
     protected:
         bool m_Running;

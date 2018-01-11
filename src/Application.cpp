@@ -42,16 +42,18 @@ int Application::mainloop() {
 
     m_Running = true;
     m_ExitCode = 0;
-    m_SceneStack.run();
-    
-//    while(m_Running) {
-//        if(m_SceneStack.size() == 0) {
-//            m_Running = false;
-//            break;
-//        }
-//        m_SceneStack.run();
-//    }
+    //m_SceneStack.run();
 
+    int ch;
+    while(m_Running) {
+        if(m_SceneStack.size() == 0) {
+            m_Running = false;
+            break;
+        }
+        ch = travail::wgetch(stdscr);
+        m_SceneStack.peek()->handle(ch);
+    }
+    
     endwin();
     
     return m_ExitCode;

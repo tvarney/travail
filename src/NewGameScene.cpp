@@ -63,20 +63,6 @@ NewGameScene::NewGameScene() {
 
 NewGameScene::~NewGameScene() { }
 
-void NewGameScene::run() {
-    draw();
-    wrefresh(stdscr);
-    
-    int ch;
-    m_Running = true;
-    while(m_Running) {
-        ch = travail::wgetch(stdscr);
-        handle(ch);
-    }
-    //TODO: Move back to MainMenu if the loop exits
-    m_Stack->pop();
-}
-
 int NewGameScene::handle(int ch) {
     if(ch == travail::cntrl('q')) {
         m_Running = false;
@@ -88,7 +74,7 @@ int NewGameScene::handle(int ch) {
     case KEY_ENTER:
     case '\n':
     case '\r':
-        if(m_Column->getFocusedIndex() == m_Column->getChildren().size()) {
+        if(m_Column->getFocusedIndex() == m_Column->getChildren().size() - 1) {
             m_Stack->swap("Game");
             m_Running = false;
             return 0;

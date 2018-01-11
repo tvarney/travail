@@ -10,12 +10,12 @@ namespace travail {
     public:
         GameScene();
         virtual ~GameScene();
-        
-        virtual void run();
+
+        virtual void draw();
         virtual int handle(int ch);
     protected:
         bool m_Running;
-        CommandBuffer m_Buffer;
+        std::shared_ptr<CommandBuffer> m_Buffer;
     };
 }
 

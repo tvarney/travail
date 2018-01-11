@@ -13,7 +13,6 @@ namespace travail {
         
         virtual void start();
         
-        virtual void run();
         virtual int handle(int ch);
         
         void moveCursor(std::size_t index);

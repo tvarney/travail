@@ -21,8 +21,6 @@ namespace travail {
         SceneStack();
         ~SceneStack();
         
-        void run();
-
         template <typename T>
         bool add(const std::string & id, std::shared_ptr<T> scene) {
             SceneRef r = scene;
@@ -38,13 +36,16 @@ namespace travail {
         
         void clear();
         
+        SceneRef & peek();
+        const SceneRef & peek() const;
+        
         std::size_t size() const;
     protected:
         bool add_impl(const std::string & id, SceneRef & scene);
         
         WINDOW * m_Window;
-        std::vector<std::shared_ptr<Scene>> m_Data;
-        std::unordered_map<std::string, std::shared_ptr<Scene>> m_Scenes;
+        std::vector<SceneRef> m_Data;
+        std::unordered_map<std::string, SceneRef> m_Scenes;
     };
 }
 

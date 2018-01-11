@@ -1,6 +1,8 @@
 
 #include "travail/ui/SceneStack.hpp"
 
+#include <stdexcept>
+
 #include "travail/ui/Scene.hpp"
 #include "travail/graphics/Curses.hpp"
 
@@ -11,13 +13,6 @@ SceneStack::SceneStack() :
 { }
 SceneStack::~SceneStack() {
     (*this).clear();
-}
-
-void SceneStack::run() {
-    while(m_Data.size() > 0) {
-        ::clear(); //< Name conflict, make sure the empty namespace is used
-        (*(m_Data.back())).run();
-    }
 }
 
 void SceneStack::setWindow(WINDOW * win) {
@@ -33,7 +28,9 @@ void SceneStack::push(const std::string & id) {
         if(m_Data.size() > 0) {
             (*(m_Data.back())).pause();
         }
+        ::wclear(stdscr);
         (*(iter->second)).start();
+        (*(iter->second)).draw();
         m_Data.push_back(iter->second);
     }
 }
@@ -45,7 +42,9 @@ void SceneStack::pop() {
         m_Data.pop_back();
         
         if(m_Data.size() > 0) {
+            ::wclear(stdscr);
             (*(m_Data.back())).resume();
+            (*(m_Data.back())).draw();
         }
     }
 }
@@ -59,7 +58,9 @@ void SceneStack::swap(const std::string & id) {
             m_Data.pop_back();
         }
         m_Data.push_back(iter->second);
+        ::wclear(stdscr);
         (*(iter->second)).start();
+        (*(iter->second)).draw();
     }
 }
 
@@ -69,6 +70,21 @@ void SceneStack::clear() {
         scene.stop();
         m_Data.pop_back();
     }
+}
+
+SceneStack::SceneRef & SceneStack::peek() {
+    if(m_Data.size() > 0) {
+        return m_Data.back();
+    }
+    // TODO: Use a different (more specific) exception here
+    throw std::runtime_error("SceneStack::peek(): Called on empty stack");
+}
+
+const SceneStack::SceneRef & SceneStack::peek() const {
+    if(m_Data.size() > 0) {
+        return m_Data.back();
+    }
+    throw std::runtime_error("SceneStack::peek(): Called on empty stack");
 }
 
 std::size_t SceneStack::size() const {

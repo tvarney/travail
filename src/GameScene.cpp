@@ -8,18 +8,22 @@
 
 using namespace travail;
 
-GameScene::GameScene() { }
+GameScene::GameScene() :
+    m_Buffer(std::make_shared<CommandBuffer>())
+{
+    add(m_Buffer);
+}
 GameScene::~GameScene() { }
-void GameScene::run() {
+
+void GameScene::draw() {
     mvwaddstr(stdscr, 0,0,"Game (Press ^Q to continue)");
     
     int width, height;
     getmaxyx(stdscr, height, width);
     
-    m_Buffer.clear();
-    m_Buffer.setPos(0, height - 1);
-    m_Buffer.setDim(Dimensions2i(width - 1,1));
-    
+    m_Buffer->clear();
+    m_Buffer->setPos(0, height - 1);
+    m_Buffer->setDim(Dimensions2i(width - 1,1));
     
     std::basic_string<chtype> div;
     div.resize(width, static_cast<chtype>(' ') | A_STANDOUT);
@@ -29,16 +33,6 @@ void GameScene::run() {
     mvwaddstr(stdscr, height - 3, 0, "Return: ");
     mvwaddstr(stdscr, height - 4, 0, "  Char: ");
 #endif
-    
-    wrefresh(stdscr);
-    
-    int ch;
-    m_Running = true;
-    while(m_Running) {
-        ch = travail::wgetch(stdscr);
-        handle(ch);
-    }
-    m_Stack->pop();
 }
 
 int GameScene::handle(int ch) {
@@ -48,13 +42,13 @@ int GameScene::handle(int ch) {
     mvwprintw(stdscr, height - 4, 8, "%d", ch); clrtoeol();
 #endif
     if(ch == 17) {
-        m_Running = false;
+        m_Stack->pop();
         return 0;
     }
-    ch = m_Buffer.handle(ch);
+    ch = m_Buffer->handle(ch);
 #ifndef NDEBUG
     mvwprintw(stdscr, height - 3, 8, "%d", ch); clrtoeol();
-    m_Buffer.updateCurs();
+    m_Buffer->updateCurs();
 #endif
     switch(ch) {
     case 0:
@@ -63,10 +57,10 @@ int GameScene::handle(int ch) {
     case KEY_ENTER:
     case '\n':
     case '\r':
-        m_Buffer.getHistory().add(m_Buffer.getContents());
-        m_Buffer.clear();
-        m_Buffer.draw();
-        wrefresh(stdscr);
+        m_Buffer->getHistory().add(m_Buffer->getContents());
+        m_Buffer->clear();
+        m_Buffer->draw();
+        wrefresh(m_Window);
         return 0;
     default:
         return ch;

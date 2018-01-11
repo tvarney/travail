@@ -9,8 +9,8 @@ namespace travail {
     public:
         InfoScene();
         virtual ~InfoScene();
-        
-        virtual void run();
+
+        virtual void draw();
         virtual int handle(int ch);
     private:
         bool m_Running;

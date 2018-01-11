@@ -37,28 +37,10 @@ void MainMenu::start() {
 #endif
     m_Children[0]->center_h(getmaxx(m_Window));
     m_Children[1]->center_h(getmaxx(m_Window));
-}
-
-void MainMenu::run() {
-    int ch = 0;//, startx;
-    m_Running = true;
-    m_Children[0]->draw();
-    m_Children[1]->draw();
-    //draw();
-    
 #ifndef NDEBUG
-    mvprintw(getmaxy(stdscr)-2,0, "%s [%d]", keyname(ch),ch);
+    mvprintw(getmaxy(stdscr)-2,0, "%s [%d]", keyname(0),0);
     clrtoeol();
 #endif
-    
-    while(m_Running) {
-        ch = travail::wgetch(stdscr);
-#ifndef NDEBUG
-        mvprintw(getmaxy(stdscr)-2,0, "%s [%d]", keyname(ch),ch);
-        clrtoeol();
-#endif
-        handle(ch);
-    };
 }
 
 int MainMenu::handle(int ch) {
@@ -67,6 +49,11 @@ int MainMenu::handle(int ch) {
         m_Stack->clear();
         return 0;
     }
+    
+#ifndef NDEBUG
+        mvprintw(getmaxy(stdscr)-2,0, "%s [%d]", keyname(ch),ch);
+        clrtoeol();
+#endif
     
     switch(m_Options->handle(ch)) {
     case KEY_RESIZE:
