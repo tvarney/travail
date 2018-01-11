@@ -45,7 +45,6 @@ void MainMenu::start() {
 
 int MainMenu::handle(int ch) {
     if(ch == 17) {
-        m_Running = false;
         m_Stack->clear();
         return 0;
     }
@@ -104,7 +103,7 @@ int MainMenu::handle(int ch) {
     case 'q':
     case 'Q':
         if(m_Options->getChosenInt() == 4) {
-            m_Running = false;
+            m_Stack->pop();
         }else {
             m_Options->setChoice(4);
             wrefresh(m_Window);
@@ -125,9 +124,9 @@ int MainMenu::handle(int ch) {
             m_Stack->push("Info");
             break;
         case 4:
+            m_Stack->pop();
             break;
         }
-        m_Running = false;
         return 0;
     case 0:
         wrefresh(m_Window);

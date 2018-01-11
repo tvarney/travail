@@ -17,7 +17,6 @@ namespace travail {
         
         void moveCursor(std::size_t index);
     protected:
-        bool m_Running;
         std::shared_ptr<Option> m_Options;
     };
 }
