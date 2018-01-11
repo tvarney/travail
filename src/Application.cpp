@@ -34,6 +34,8 @@ void Application::load_config() { }
 int Application::mainloop() {
     travail::init_curses();
     
+    m_SceneStack.setWindow(stdscr);
+    
     if(m_SceneStack.size() == 0) {
         m_SceneStack.push("MainMenu");
     }
