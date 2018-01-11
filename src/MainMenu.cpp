@@ -8,7 +8,9 @@
 #include "travail/ui/SceneStack.hpp"
 #include "travail/util/Keys.hpp"
 
-#include <iostream>
+#ifndef NDEBUG
+# include <iostream>
+#endif
 
 using namespace travail;
 
@@ -29,8 +31,10 @@ MainMenu::MainMenu() :
 MainMenu::~MainMenu() { }
 
 void MainMenu::start() {
+#ifndef NDEBUG
     std::cout << "MainMenu::start(): WINDOW *m_Window = " << m_Window <<
         std::endl;
+#endif
     m_Children[0]->center_h(getmaxx(m_Window));
     m_Children[1]->center_h(getmaxx(m_Window));
 }
