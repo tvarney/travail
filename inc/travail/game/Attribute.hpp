@@ -10,6 +10,7 @@ namespace travail {
     public: //< Enumeration
         enum Id {
             HitPoints,
+            Mana,
             FatiguePoints,
             Strength,
             Dexterity,
@@ -19,7 +20,10 @@ namespace travail {
             Wisdom,
             Charisma,
             
+            Length,
+            
             HP  = HitPoints,
+            MP  = Mana,
             FP  = FatiguePoints,
             STR = Strength,
             DEX = Dexterity,
@@ -28,8 +32,6 @@ namespace travail {
             INT = Intelligence,
             WIS = Wisdom,
             CHA = Charisma,
-            
-            Length
         };
         
         enum Status {
