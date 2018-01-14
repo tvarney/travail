@@ -5,8 +5,6 @@
 
 using namespace travail;
 
-std::shared_ptr<Widget> _g_null_widget(nullptr);
-
 LinearContainer::LinearContainer() :
     Container(),
     m_FocusIndex(0), m_Wrap(true)
@@ -70,15 +68,15 @@ Point2i LinearContainer::getCursor() const {
     return Widget::getCursor();
 }
 
-std::shared_ptr<Widget> & LinearContainer::getFocused() {
+WidgetRef & LinearContainer::getFocused() {
     if(m_Children.empty()) {
-        return _g_null_widget;
+        return Widget::Null;
     }
     return m_Children[m_FocusIndex];
 }
-const std::shared_ptr<Widget> & LinearContainer::getFocused() const {
+const WidgetRef & LinearContainer::getFocused() const {
     if(m_Children.empty()) {
-        return _g_null_widget;
+        return Widget::Null;
     }
     return m_Children[m_FocusIndex];
 }

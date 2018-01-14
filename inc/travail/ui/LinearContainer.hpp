@@ -25,8 +25,8 @@ namespace travail {
         
         virtual Point2i getCursor() const;
         
-        virtual std::shared_ptr<Widget> & getFocused();
-        virtual const std::shared_ptr<Widget> & getFocused() const;
+        virtual WidgetRef & getFocused();
+        virtual const WidgetRef & getFocused() const;
 
         virtual std::size_t getFocusedIndex() const;
     protected:

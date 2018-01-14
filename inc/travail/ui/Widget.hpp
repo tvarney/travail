@@ -16,6 +16,9 @@ namespace travail {
     
     class Widget {
     public:
+        static WidgetRef Null;
+        
+    public:
         virtual ~Widget();
         
         virtual int handle(int ch);

@@ -9,6 +9,8 @@
 
 using namespace travail;
 
+WidgetRef Widget::Null(nullptr);
+
 Widget::Widget() :
     m_Parent(nullptr), m_Window(nullptr)
 { }
