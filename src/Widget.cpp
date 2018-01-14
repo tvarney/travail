@@ -31,6 +31,28 @@ const Dimensions2i & Widget::getDim() const {
     return m_Dim;
 }
 
+void Widget::setMaxDim(const Dimensions2i & dim) {
+    m_MaxDim = dim;
+}
+const Dimensions2i & Widget::getMaxDim() const {
+    return m_MaxDim;
+}
+
+void Widget::setMinDim(const Dimensions2i & dim) {
+    m_MinDim = dim;
+}
+const Dimensions2i & Widget::getMinDim() const {
+    return m_MinDim;
+}
+
+void Widget::setPrefDim(const Dimensions2i & dim) {
+    m_PrefDim = dim;
+}
+const Dimensions2i & Widget::getPrefDim() const {
+    return m_PrefDim;
+}
+
+
 const Point2i & Widget::getPos() const {
     return m_Origin;
 }

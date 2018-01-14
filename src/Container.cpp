@@ -65,6 +65,6 @@ void Container::draw() {
     }
 }
 
-const Container::ChildrenVector & Container::getChildren() const {
+const ChildList & Container::getChildren() const {
     return m_Children;
 }

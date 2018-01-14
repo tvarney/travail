@@ -36,7 +36,7 @@ namespace travail {
         
         virtual void draw();
         virtual int handle(int ch);
-
+        
         virtual void setWindow(WINDOW * win);
         
         virtual Point2i getCursor() const;

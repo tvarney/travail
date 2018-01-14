@@ -4,32 +4,30 @@
 
 #include "travail/ui/Widget.hpp"
 
-#include <memory>
 #include <vector>
 
 namespace travail {
+    typedef std::vector<WidgetRef> ChildList;
+    
     class Container : public Widget {
-    public:
-        typedef std::vector<std::shared_ptr<Widget>> ChildrenVector;
-        
     public:
         virtual ~Container();
         
         virtual void add(Widget * widget);
-        virtual void add(std::shared_ptr<Widget> widget);
+        virtual void add(WidgetRef widget);
         virtual void remove(Widget * widget);
-        virtual void remove(std::shared_ptr<Widget> widget);
+        virtual void remove(WidgetRef widget);
         
         virtual void setWindow(WINDOW *window);
         
-        const ChildrenVector & getChildren() const;
+        const ChildList & getChildren() const;
         
         virtual void draw();
     protected:
         Container();
         Container(Point2i &orig, Dimensions2i &dim);
         
-        ChildrenVector m_Children;
+        ChildList m_Children;
     };
 }
 
