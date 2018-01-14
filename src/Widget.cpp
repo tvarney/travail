@@ -13,7 +13,8 @@ Widget::Widget() :
     m_Parent(nullptr), m_Window(nullptr)
 { }
 Widget::Widget(const Point2i &orig, const Dimensions2i &dim) :
-    m_Parent(nullptr), m_Window(nullptr), m_Origin(orig), m_Dim(dim)
+    m_Parent(nullptr), m_Window(nullptr), m_Origin(orig), m_Dim(dim),
+    m_PrefDim(dim), m_MinDim(), m_MaxDim(Dimensions2i::Max())
 { }
 Widget::~Widget() { }
 

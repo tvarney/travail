@@ -3,10 +3,23 @@
 #define TRAVAIL_DIMENSIONS_HPP
 
 #include <stdint.h>
+#include <limits>
 
 namespace travail {
     template <typename Type>
     class Dimensions {
+    public:
+        static Dimensions<Type> Max() {
+            return Dimensions<Type>(
+                std::numeric_limits<Type>::max(),
+                std::numeric_limits<Type>::max());
+        }
+        static Dimensions<Type> Min() {
+            return Dimensions<Type>(
+                std::numeric_limits<Type>::lowest(),
+                std::numeric_limits<Type>::lowest());
+        }
+        
     public:
         Dimensions() :
             width(0), height(0)
