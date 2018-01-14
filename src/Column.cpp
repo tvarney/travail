@@ -6,11 +6,20 @@
 
 using namespace travail;
 
+const std::string Column::ClassName("Column");
+
 Column::Column() :
     LinearContainer()
 { }
+Column::Column(const std::string & name) :
+    LinearContainer(name)
+{ }
 
 Column::~Column() { }
+
+const std::string & Column::classname() const {
+    return Column::ClassName;
+}
 
 int Column::handle(int ch) {
     // Check if we are empty, return the character unhandled if so

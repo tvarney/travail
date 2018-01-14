@@ -17,10 +17,16 @@ namespace travail {
      */
     class Column : public LinearContainer {
     public:
+        static const std::string ClassName;
+        
+    public:
         Column();
+        Column(const std::string & name);
         virtual ~Column();
         
         virtual int handle(int ch);
+
+        virtual const std::string & classname() const;
     };
 }
 

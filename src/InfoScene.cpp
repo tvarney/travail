@@ -17,7 +17,9 @@ const char * get_terminal_desc() {
     return desc;
 }
 
-InfoScene::InfoScene() { }
+InfoScene::InfoScene() :
+    Scene("Info")
+{ }
 InfoScene::~InfoScene() { }
 
 void InfoScene::draw() {

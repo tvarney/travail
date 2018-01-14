@@ -15,10 +15,18 @@ namespace travail {
      */
     class Row : public LinearContainer {
     public:
+        static const std::string ClassName;
+        
+    public:
         Row();
         virtual ~Row();
+
+        virtual const std::string & classname() const override;
+
+        virtual bool add(Widget * widget) override;
+        virtual bool add(WidgetRef widget) override;
         
-        virtual int handle(int ch);
+        virtual int handle(int ch) override;
     };
 }
 

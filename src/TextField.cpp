@@ -13,17 +13,39 @@ static int _word_boundary(int ch) {
     return (std::isspace(ch) || !(std::isalnum(ch)));
 }
 
+const std::string TextField::ClassName("TextField");
+
 TextField::TextField() :
-    TextField(Point2i(0,0), 79)
+    TextField("", Point2i(), 79)
 { }
+
+TextField::TextField(const std::string & name) :
+    TextField(name, Point2i(), 79)
+{ }
+
 TextField::TextField(int width) :
-    TextField(Point2i(0,0), width)
+    TextField("", Point2i(), width)
 { }
+
+TextField::TextField(const std::string & name, int width) :
+    TextField(name, Point2i(), width)
+{ }
+
 TextField::TextField(int x, int y, int width) :
-    TextField(Point2i(x,y), width)
+    TextField("", Point2i(x,y), width)
 { }
-TextField::TextField(const Point2i &origin, int width) :
-    Widget(origin, Dimensions2i((width > 2 ? width : 2), 1)),
+
+TextField::TextField(const std::string & name, int x, int y, int width) :
+    TextField(name, Point2i(x,y), width)
+{ }
+
+TextField::TextField(const Point2i & origin, int width) :
+    TextField("", origin, width)
+{ }
+
+TextField::TextField(const std::string & name, const Point2i & origin,
+                     int width) :
+    Widget(name, origin, Dimensions2i((width > 2 ? width : 2), 1)),
     m_ValidCh(nullptr), m_MaxStrSize(std::numeric_limits<std::size_t>::max()),
     m_StrIndex(0), m_DispIndex(0), m_Cursor(0), m_Advance(m_Dim.width / 2)
 {
@@ -115,6 +137,10 @@ void TextField::draw() {
     // Write string to display
     mvwaddnstr(m_Window, m_Origin.y, m_Origin.x, m_Buffer.data() + m_DispIndex,
                nchars);
+}
+
+const std::string & TextField::classname() const {
+    return TextField::ClassName;
 }
 
 void TextField::addch(char ch) {

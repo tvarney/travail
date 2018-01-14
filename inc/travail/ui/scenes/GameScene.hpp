@@ -11,10 +11,9 @@ namespace travail {
         GameScene();
         virtual ~GameScene();
 
-        virtual void draw();
-        virtual int handle(int ch);
+        virtual void draw() override;
+        virtual int handle(int ch) override;
     protected:
-        bool m_Running;
         std::shared_ptr<CommandBuffer> m_Buffer;
     };
 }

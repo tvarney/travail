@@ -9,6 +9,10 @@ LinearContainer::LinearContainer() :
     Container(),
     m_FocusIndex(0), m_Wrap(true)
 { }
+LinearContainer::LinearContainer(const std::string & name) :
+    Container(name),
+    m_FocusIndex(0), m_Wrap(true)
+{ }
 
 LinearContainer::~LinearContainer() { }
 

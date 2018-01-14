@@ -9,7 +9,7 @@
 using namespace travail;
 
 GameScene::GameScene() :
-    m_Buffer(std::make_shared<CommandBuffer>())
+    Scene("Game"), m_Buffer(std::make_shared<CommandBuffer>())
 {
     add(m_Buffer);
 }

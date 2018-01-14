@@ -9,7 +9,10 @@ namespace travail {
     
     class Scene : public Container {
     public:
-        Scene();
+        static const std::string ClassName;
+        
+    public:
+        Scene(const std::string & name);
         virtual ~Scene();
         
         virtual void start();
@@ -19,6 +22,8 @@ namespace travail {
         virtual void resume();
         
         virtual int handle(int ch) = 0;
+        
+        virtual const std::string & classname() const;
         
         void set_stack(SceneStack & stack);
     protected:

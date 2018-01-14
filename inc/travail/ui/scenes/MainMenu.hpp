@@ -12,10 +12,7 @@ namespace travail {
         virtual ~MainMenu();
         
         virtual void start();
-        
         virtual int handle(int ch);
-        
-        void moveCursor(std::size_t index);
     protected:
         std::shared_ptr<Option> m_Options;
     };

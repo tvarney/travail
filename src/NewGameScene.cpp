@@ -21,13 +21,15 @@ static int _pred_isheight(int ch) {
     return (std::isdigit(ch) || ch == '"' || ch == '\'');
 }
 
-NewGameScene::NewGameScene() {
+NewGameScene::NewGameScene() :
+    Scene("NewGame")
+{
     m_Row = new Row();
     m_Column = new Column();
     
-    add(new Label(0,0,"::New Game",A_BOLD|A_STANDOUT));
-    add(new Label(0,22,_g_str_help1));
-    add(new Label(0,23,_g_str_help2));
+    add(new Label(Point2i(0,0),"::New Game", A_BOLD|A_STANDOUT));
+    add(new Label(Point2i(0,22),_g_str_help1));
+    add(new Label(Point2i(0,23),_g_str_help2));
     
     InputField * fld_Name = new InputField(0, 1, "Name:", A_BOLD, 40);
     fld_Name->setMaxLength(fld_Name->getDim().width);
@@ -56,7 +58,7 @@ NewGameScene::NewGameScene() {
     m_Column->add(fld_Name);
     m_Column->add(opt_Gender);
     m_Column->add(m_Row);
-    m_Column->add(new Label(76,21,"Next", A_BOLD));
+    m_Column->add(new Label(Point2i(76,21),"Next", A_BOLD));
 
     add(m_Column);
 }
@@ -65,7 +67,6 @@ NewGameScene::~NewGameScene() { }
 
 int NewGameScene::handle(int ch) {
     if(ch == travail::cntrl('q')) {
-        m_Running = false;
         m_Stack->pop();
         return 0;
     }
@@ -76,7 +77,6 @@ int NewGameScene::handle(int ch) {
     case '\r':
         if(m_Column->getFocusedIndex() == m_Column->getChildren().size() - 1) {
             m_Stack->swap("Game");
-            m_Running = false;
             return 0;
         }
         break;

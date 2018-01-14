@@ -15,9 +15,10 @@
 using namespace travail;
 
 MainMenu::MainMenu() :
+    Scene("MainMenu"),
     m_Options(std::make_shared<Option>(Orientation::Vertical, 0, 2))
 {
-    add(new Label(0, 0, "Travail Text RPG", COLOR_PAIR(1) | A_BOLD));
+    add(new Label(Point2i(0, 0), "Travail Text RPG", COLOR_PAIR(1) | A_BOLD));
     m_Options->add("New Game");
     m_Options->add("Load Game");
     m_Options->add("Options");

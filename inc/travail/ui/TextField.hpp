@@ -8,13 +8,19 @@
 namespace travail {
     class TextField : public Widget {
     public:
+        static const std::string ClassName;
+        
         typedef int (*TextPredicate)(int);
         
     public:
         TextField();
-        TextField(int width);
+        explicit TextField(const std::string & name);
+        explicit TextField(int width);
+        TextField(const std::string & name, int width);
         TextField(int x, int y, int width);
-        TextField(const Point2i &origin, int width);
+        TextField(const std::string & name, int x, int y, int width);
+        TextField(const Point2i & origin, int width);
+        TextField(const std::string & name, const Point2i & origin, int width);
         virtual ~TextField();
         
         virtual const std::string & getContents() const;
@@ -37,11 +43,13 @@ namespace travail {
          * \arg \c ch The input character
          * \return The character if it isn't handled, 0 otherwise
          */
-        virtual int handle(int ch);
+        virtual int handle(int ch) override;
         /**
          * \brief Draw entire TextField
          */
-        virtual void draw();
+        virtual void draw() override;
+        
+        virtual const std::string & classname() const;
         
         /**
          * \brief Add character to content buffer.

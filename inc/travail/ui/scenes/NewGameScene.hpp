@@ -15,7 +15,6 @@ namespace travail {
         
         virtual int handle(int ch);
     protected:
-        bool m_Running;
         Column *m_Column;
         Row *m_Row;
     };

@@ -12,11 +12,19 @@ using namespace travail;
 WidgetRef Widget::Null(nullptr);
 
 Widget::Widget() :
-    m_Parent(nullptr), m_Window(nullptr)
+    Widget("")
 { }
-Widget::Widget(const Point2i &orig, const Dimensions2i &dim) :
+Widget::Widget(const std::string & name) :
+    m_Parent(nullptr), m_Window(nullptr), m_Name(name)
+{ }
+Widget::Widget(const Point2i & orig, const Dimensions2i & dim) :
+    Widget("", orig, dim)
+{ }
+Widget::Widget(const std::string & name, const Point2i & orig,
+               const Dimensions2i & dim) :
     m_Parent(nullptr), m_Window(nullptr), m_Origin(orig), m_Dim(dim),
-    m_PrefDim(dim), m_MinDim(), m_MaxDim(Dimensions2i::Max())
+    m_PrefDim(dim), m_MinDim(), m_MaxDim(Dimensions2i::Max()),
+    m_Name(name)
 { }
 Widget::~Widget() { }
 
@@ -27,7 +35,7 @@ void Widget::erase() {
     travail::erase(m_Window, m_Origin, m_Dim);
 }
 
-void Widget::setDim(const Dimensions2i &dim) {
+void Widget::setDim(const Dimensions2i & dim) {
     m_Dim = dim;
 }
 const Dimensions2i & Widget::getDim() const {
@@ -60,7 +68,7 @@ const Point2i & Widget::getPos() const {
     return m_Origin;
 }
 
-void Widget::setPos(const Point2i &pos) {
+void Widget::setPos(const Point2i & pos) {
     m_Origin = pos;
 }
 void Widget::setPos(int x, int y) {
@@ -107,6 +115,19 @@ void Widget::setWindow(WINDOW * window) {
 WINDOW * Widget::getWindow() {
     return m_Window;
 }
+
+WidgetRef Widget::findByName(const std::string & name) {
+    return Widget::Null;
+}
+
+const WidgetRef Widget::findByName(const std::string & name) const {
+    return Widget::Null;
+}
+
 const WINDOW * Widget::getWindow() const {
     return m_Window;
+}
+
+const std::string & Widget::name() const {
+    return m_Name;
 }

@@ -8,13 +8,20 @@
 namespace travail {
     class Label : public Widget {
     public:
+        static const std::string ClassName;
+        
+    public:
         Label();
-        Label(const std::string &str, int attr = 0);
-        Label(int x, int y, const std::string &str, int attr = 0);
-        Label(const Point2i &pos, const std::string &str, int attr = 0);
+        explicit Label(const std::string & str, int attr = 0);
+        Label(const std::string & name, const std::string & str, int attr = 0);
+        Label(const Point2i & pos, const std::string & str, int attr = 0);
+        Label(const std::string & name, const Point2i & pos,
+              const std::string & str, int attr = 0);
         virtual ~Label();
         
-        virtual void draw();
+        virtual void draw() override;
+        
+        virtual const std::string & classname() const override;
         
         const Text & getText() const;
         void setText(const std::string &string, int attr = 0);

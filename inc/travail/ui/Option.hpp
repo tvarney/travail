@@ -11,6 +11,9 @@
 namespace travail {
     class Option : public Widget {
     public:
+        static const std::string ClassName;
+    
+    public:
         Option();
         Option(Orientation o);
         Option(int x, int y);
@@ -22,8 +25,8 @@ namespace travail {
         virtual void add(const std::string &optstr);
         virtual void remove(const std::string &optstr);
         
-        virtual void setPos(int x, int y);
-        virtual void setPos(const Point2i &pos);
+        virtual void setPos(int x, int y) override;
+        virtual void setPos(const Point2i &pos) override;
         
         virtual bool setChoice(int index);
         virtual int getSelectedAttrib() const;
@@ -34,12 +37,14 @@ namespace travail {
         virtual const std::string & getChosenStr() const;
         virtual int getChosenInt() const;
         
-        virtual void draw();
-        virtual int handle(int ch);
+        virtual void draw() override;
+        virtual int handle(int ch) override;
         
-        virtual void setWindow(WINDOW * win);
-        
+        virtual void setWindow(WINDOW * win) override;
+
         virtual Point2i getCursor() const;
+
+        virtual const std::string & classname() const override;
     protected:
         Orientation m_Orient;
         int m_AttrOn, m_AttrOff;

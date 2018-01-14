@@ -13,19 +13,26 @@ namespace travail {
     public:
         virtual ~Container();
         
-        virtual void add(Widget * widget);
-        virtual void add(WidgetRef widget);
-        virtual void remove(Widget * widget);
-        virtual void remove(WidgetRef widget);
+        virtual bool add(Widget * widget);
+        virtual bool add(WidgetRef widget);
+        virtual bool remove(Widget * widget);
+        virtual bool remove(WidgetRef widget);
         
-        virtual void setWindow(WINDOW *window);
+        virtual void setWindow(WINDOW * window);
         
         const ChildList & getChildren() const;
+        
+        virtual WidgetRef findByName(const std::string & name) override;
+        virtual const WidgetRef findByName(const std::string & name) const
+            override;
         
         virtual void draw();
     protected:
         Container();
-        Container(Point2i &orig, Dimensions2i &dim);
+        Container(const std::string & name);
+        Container(const Point2i & orig, const Dimensions2i & dim);
+        Container(const std::string & name, const Point2i & orig,
+                  const Dimensions2i & dim);
         
         ChildList m_Children;
     };

@@ -6,11 +6,37 @@
 
 using namespace travail;
 
+const std::string Row::ClassName("Row");
+
 Row::Row() :
     LinearContainer()
 { }
 
 Row::~Row() { }
+
+const std::string & Row::classname() const {
+    return Row::ClassName;
+}
+
+bool Row::add(Widget * widget) {
+    return add(WidgetRef(widget));
+}
+
+bool Row::add(WidgetRef widget) {
+    if(false == Container::add(widget)) {
+        return false;
+    }
+
+    // If we added the widget, update our preferred dimensions
+    
+    Dimensions2i wdim = widget->getPrefDim();
+    m_PrefDim.width += wdim.width;
+    if(wdim.height > m_PrefDim.height) {
+        m_PrefDim.height = wdim.height;
+    }
+    
+    return true;
+}
 
 int Row::handle(int ch) {
     // Check if we are empty, return the character unhandled if so

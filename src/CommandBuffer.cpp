@@ -5,17 +5,26 @@
 
 using namespace travail;
 
+const std::string CommandBuffer::ClassName("CommandBuffer");
+
 CommandBuffer::CommandBuffer() :
-    CommandBuffer(Point2i(0, getmaxy(stdscr) - 1), 79)
+    CommandBuffer(Point2i(), 79)
+{ }
+CommandBuffer::CommandBuffer(const std::string & name) :
+    CommandBuffer(name, Point2i(), 79)
 { }
 CommandBuffer::CommandBuffer(int width) :
-    CommandBuffer(Point2i(0, getmaxy(stdscr) - 1), width)
+    CommandBuffer(Point2i(), width)
 { }
-CommandBuffer::CommandBuffer(int x, int y, int width) :
-    CommandBuffer(Point2i(x,y), width)
+CommandBuffer::CommandBuffer(const std::string & name, int width) :
+    CommandBuffer(name, Point2i(), width)
 { }
-CommandBuffer::CommandBuffer(const Point2i &origin, int width) :
-    TextField(origin, width),
+CommandBuffer::CommandBuffer(const Point2i & origin, int width) :
+    CommandBuffer("", origin, width)
+{ }
+CommandBuffer::CommandBuffer(const std::string & name, const Point2i & origin,
+                             int width) :
+    TextField(name, origin, width),
     m_HistoryIndex(-1)
 { }
 CommandBuffer::~CommandBuffer() { }
@@ -62,6 +71,10 @@ int CommandBuffer::handle(int ch) {
         return 0;
     }
     return ch;
+}
+
+const std::string & CommandBuffer::classname() const {
+    return CommandBuffer::ClassName;
 }
 
 History & CommandBuffer::getHistory() {

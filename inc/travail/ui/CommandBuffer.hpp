@@ -13,13 +13,21 @@
 namespace travail {
     class CommandBuffer : public TextField {
     public:
+        static const std::string ClassName;
+        
+    public:
         CommandBuffer();
+        CommandBuffer(const std::string & name);
         CommandBuffer(int width);
-        CommandBuffer(int x, int y, int width);
-        CommandBuffer(const Point2i &origin, int width);
+        CommandBuffer(const std::string & name, int width);
+        CommandBuffer(const Point2i & origin, int width);
+        CommandBuffer(const std::string & name, const Point2i & origin,
+                      int width);
         virtual ~CommandBuffer();
         
-        int handle(int ch);
+        virtual int handle(int ch) override;
+        
+        virtual const std::string & classname() const override;
         
         History & getHistory();
         const History & getHistory() const;

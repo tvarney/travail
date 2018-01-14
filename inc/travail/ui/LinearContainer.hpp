@@ -31,6 +31,7 @@ namespace travail {
         virtual std::size_t getFocusedIndex() const;
     protected:
         LinearContainer();
+        LinearContainer(const std::string & name);
         
         std::size_t m_FocusIndex;
         bool m_Wrap;

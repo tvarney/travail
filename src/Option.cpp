@@ -10,6 +10,8 @@
 
 using namespace travail;
 
+const std::string Option::ClassName("Option");
+
 Option::Option() :
     Option(Point2i(0,0))
 { }
@@ -238,4 +240,8 @@ Point2i Option::getCursor() const {
         return Widget::getCursor();
     }
     return m_Choices[m_Index].getCursor();
+}
+
+const std::string & Option::classname() const {
+    return Option::ClassName;
 }
