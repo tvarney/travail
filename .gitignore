@@ -3,7 +3,6 @@
 *.debug.o
 .present
 
-./build/travail
-./build/travail.debug
+build/travail*
 
 ~*
