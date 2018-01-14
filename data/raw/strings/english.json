@@ -1,0 +1,42 @@
+{
+  "dictionaries":{
+    "english": {
+      "name": "English",
+      "strings":{
+        "attr.str.short": "Str",
+        "attr.str.long": "Strength",
+        "attr.dex.short": "Dex",
+        "attr.dex.long": "Dexterity",
+        "attr.con.short": "Con",
+        "attr.con.long": "Constitution",
+        "attr.agl.short": "Agl",
+        "attr.agl.long": "Agility",
+        "attr.int.short": "Int",
+        "attr.int.long": "Intelligence",
+        "attr.wis.short": "Wis",
+        "attr.wis.long": "Wisdom",
+
+        "points.hp.short": "HP",
+        "points.hp.long": "Health",
+        "points.mp.short": "MP",
+        "points.mp.long": "Mana",
+        "points.fp.short": "FP",
+        "points.fp.long": "Stamina",
+        
+        "ui.general.next": "Next",
+        "ui.general.prev": "Prev",
+        "ui.general.back": "Back",
+        "ui.general.next_short": ">",
+        "ui.general.prev_short": "<",
+        
+        "ui.mainmenu.title": "Travail Text RPG",
+        "ui.mainmenu.new_game": "New Game",
+        "ui.mainmenu.load_game": "Load Game",
+        "ui.mainmenu.options": "Options",
+        "ui.mainmenu.terminfo": "Terminfo",
+        "ui.mainmenu.quit": "Quit"
+      }
+    }
+  }
+}
+
