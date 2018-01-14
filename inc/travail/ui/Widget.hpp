@@ -15,6 +15,27 @@ namespace travail {
 
     typedef std::shared_ptr<Widget> WidgetRef;
     
+    enum Align {
+        Mask    = 0x0000000F,
+        
+        Center      = 0x00000000,
+        Right       = 0x00000001,
+        Left        = 0x00000002,
+        Top         = 0x00000003,
+        Bottom      = 0x00000004,
+        TopRight    = 0x00000005,
+        TopLeft     = 0x00000006,
+        BottomLeft  = 0x00000007,
+        BottomRight = 0x00000008,
+    };
+    
+    enum Expand {
+        Mask       = 0x00000030,
+        Horizontal = 0x00000010,
+        Vertical   = 0x00000020,
+        Both = Vertical | Horizontal,
+    };
+    
     class Widget {
     public:
         static WidgetRef Null;
@@ -75,6 +96,7 @@ namespace travail {
         Point2i m_Origin;
         Dimensions2i m_Dim, m_PrefDim, m_MinDim, m_MaxDim;
         std::string m_Name;
+        uint32_t m_Attributes;
     };
 }
 
