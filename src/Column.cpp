@@ -17,6 +17,24 @@ Column::Column(const std::string & name) :
 
 Column::~Column() { }
 
+bool Column::add(Widget * widget) {
+    return add(WidgetRef(widget));
+}
+
+bool Column::add(WidgetRef widget) {
+    if(false == Container::add(widget)) {
+        return false;
+    }
+    
+    Dimensions2i wdim = widget->getPrefDim();
+    m_PrefDim.height += wdim.height;
+    if(wdim.width > m_PrefDim.width) {
+        m_PrefDim.width = wdim.width;
+    }
+    
+    return true;
+}
+
 const std::string & Column::classname() const {
     return Column::ClassName;
 }

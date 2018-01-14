@@ -24,9 +24,13 @@ namespace travail {
         Column(const std::string & name);
         virtual ~Column();
         
-        virtual int handle(int ch);
+        virtual bool add(Widget * widget) override;
+        virtual bool add(WidgetRef widget) override;
+        
+        
+        virtual int handle(int ch) override;
 
-        virtual const std::string & classname() const;
+        virtual const std::string & classname() const override;
     };
 }
 
