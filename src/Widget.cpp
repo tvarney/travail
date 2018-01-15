@@ -11,20 +11,21 @@ using namespace travail;
 
 WidgetRef Widget::Null(nullptr);
 
-Widget::Widget() :
-    Widget("")
+Widget::Widget(uint32_t flags) :
+    Widget("", Point2i(), Dimensions2i(), flags)
 { }
-Widget::Widget(const std::string & name) :
-    m_Parent(nullptr), m_Window(nullptr), m_Name(name)
+Widget::Widget(const std::string & name, uint32_t flags) :
+    Widget(name, Point2i(), Dimensions2i(), flags)
 { }
-Widget::Widget(const Point2i & orig, const Dimensions2i & dim) :
-    Widget("", orig, dim)
+Widget::Widget(const Point2i & orig, const Dimensions2i & dim,
+               uint32_t flags) :
+    Widget("", orig, dim, flags)
 { }
 Widget::Widget(const std::string & name, const Point2i & orig,
-               const Dimensions2i & dim) :
+               const Dimensions2i & dim, uint32_t flags) :
     m_Parent(nullptr), m_Window(nullptr), m_Origin(orig), m_Dim(dim),
     m_PrefDim(dim), m_MinDim(), m_MaxDim(Dimensions2i::Max()),
-    m_Name(name)
+    m_Name(name), m_Attributes(flags)
 { }
 Widget::~Widget() { }
 
