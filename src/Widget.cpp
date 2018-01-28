@@ -36,6 +36,17 @@ void Widget::erase() {
     travail::erase(m_Window, m_Origin, m_Dim);
 }
 
+bool Widget::canFocus() const {
+    return false;
+}
+
+bool Widget::requestFocus() {
+    if(m_Parent != nullptr) {
+        return m_Parent->setFocus(this);
+    }
+    return false;
+}
+
 void Widget::setDim(const Dimensions2i & dim) {
     m_Dim = dim;
 }

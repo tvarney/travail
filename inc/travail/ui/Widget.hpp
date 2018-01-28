@@ -26,7 +26,7 @@ namespace travail {
             AlignH_Mask = 0x00000000,
             AlignV_Mask = 0x00000000,
             ExpandMask  = 0x00000030,
-            
+
             AlignH_Center    = 0x00000002,
             AlignH_Left      = 0x00000000,
             AlignH_Right     = 0x00000001,
@@ -43,20 +43,23 @@ namespace travail {
             AlignTopLeft     = AlignH_Left   | AlignV_Top,
             AlignBottomLeft  = AlignH_Left   | AlignV_Bottom,
             AlignBottomRight = AlignH_Right  | AlignV_Bottom,
-            
+
             ExpandNone       = 0x00000000,
             ExpandHorizontal = 0x00000010,
             ExpandVertical   = 0x00000020,
             ExpandBoth       = ExpandVertical | ExpandHorizontal,
         };
-        
+
     public:
         virtual ~Widget();
-        
+
         virtual int handle(int ch);
         virtual void draw() = 0;
         virtual void erase();
-        
+
+        virtual bool canFocus() const;
+        virtual bool requestFocus();
+
         virtual void setDim(const Dimensions2i & dim);
         virtual const Dimensions2i & getDim() const;
 
@@ -68,30 +71,30 @@ namespace travail {
 
         virtual void setPrefDim(const Dimensions2i & dim);
         virtual const Dimensions2i & getPrefDim() const;
-        
+
         virtual const Point2i & getPos() const;
         virtual void setPos(const Point2i & pos);
         virtual void setPos(int x, int y);
-        
+
         virtual Point2i getCursor() const;
-        
+
         virtual void center(int width, int height);
         virtual void center_h(int width);
         virtual void center_v(int height);
-        
+
         virtual void setParent(Container * parent);
-        
+
         virtual Container * getParent();
         virtual const Container * getParent() const;
-        
+
         virtual void setWindow(WINDOW * window);
-        
+
         virtual WINDOW * getWindow();
         virtual const WINDOW * getWindow() const;
-        
+
         virtual WidgetRef findByName(const std::string & name);
         virtual const WidgetRef findByName(const std::string & name) const;
-        
+
         virtual const std::string & classname() const = 0;
         virtual const std::string & name() const;
     protected:
@@ -101,7 +104,7 @@ namespace travail {
                uint32_t flags = 0);
         Widget(const std::string & name, const Point2i & orig,
                const Dimensions2i & dim, uint32_t flags = 0);
-        
+
         Container *m_Parent;
         WINDOW *m_Window;
         Point2i m_Origin;
