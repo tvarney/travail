@@ -1,5 +1,5 @@
 
-#include "Travail/graphics/ColorMap.hpp"
+#include "travail/graphics/ColorMap.hpp"
 
 #include <cstring>
 
